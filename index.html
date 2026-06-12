@@ -727,6 +727,38 @@
       50% { transform: translateY(5px); }
     }
 
+    /* ─── SPRINT NEXT DOT ─── */
+    .sprint-next {
+      flex: 0 0 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem 1rem;
+    }
+    .sprint-next-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--green);
+      background: transparent;
+      animation: pulse-ring 2s infinite;
+    }
+    @keyframes pulse-ring {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(14,108,207,0.5); }
+      50% { box-shadow: 0 0 0 8px rgba(14,108,207,0); }
+    }
+    .sprint-next-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: center;
+      line-height: 1.6;
+    }
+
     /* ─── SPRINT CARD SLIDE-IN ─── */
     .sprint-card {
       opacity: 0;
@@ -1061,6 +1093,10 @@
           </div>
         </div>
         <p class="sprint-desc">ERP-System für ca. 310 Gesundheitsbetriebe implementiert. Kundenfeedback in strukturierten Input für Entwicklungsteams übersetzt — erste Erfahrung an der Schnittstelle zwischen Nutzern und Engineering.</p>
+      </div>
+      <div class="sprint-next">
+        <div class="sprint-next-dot"></div>
+        <div class="sprint-next-label">Next<br/>Sprint</div>
       </div>
     </div>
 
