@@ -202,6 +202,7 @@
       flex-direction: column;
       justify-content: center;
       padding-top: 7rem;
+      position: relative;
     }
     .avail {
       display: inline-flex;
@@ -676,6 +677,38 @@
     .footer-inner a { color: var(--grey); text-decoration: none; }
     .footer-inner a:hover { color: var(--green); }
 
+    /* ─── SCROLL HINT ─── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 1;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .scroll-hint.hidden { opacity: 0; }
+    .scroll-hint-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .scroll-hint-arrow {
+      font-size: 1.1rem;
+      color: var(--dim);
+      animation: bounce 1.8s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+
     /* ─── HIGH ALERT MODE ─── */
     body.high-alert {
       --bg:      #ffffff;
@@ -853,6 +886,10 @@
         <a href="#roadmap" class="btn btn-green">Roadmap ansehen ↗</a>
         <a href="#contact" class="btn btn-ghost">Start the next Sprint</a>
       </div>
+    </div>
+    <div class="scroll-hint" id="scrollHint">
+      <span class="scroll-hint-label">Scroll</span>
+      <span class="scroll-hint-arrow">↓</span>
     </div>
   </section>
 
@@ -1255,6 +1292,15 @@
     btn.disabled = false;
     btn.textContent = 'Send ↗';
   });
+
+  // Scroll hint — hide on first scroll
+  const scrollHint = document.getElementById('scrollHint');
+  window.addEventListener('scroll', function hideHint() {
+    if (window.scrollY > 40) {
+      scrollHint.classList.add('hidden');
+      window.removeEventListener('scroll', hideHint);
+    }
+  }, { passive: true });
 
   // System state toggle
   document.getElementById('navState').addEventListener('click', function() {
