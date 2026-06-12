@@ -111,7 +111,7 @@
       position: fixed;
       right: 1.6rem;
       top: 80px;
-      bottom: 140px;
+      bottom: 72px;
       width: 1px;
       background: var(--line);
       z-index: 90;
@@ -148,7 +148,7 @@
     .scroll-section-label {
       position: fixed;
       right: 1.05rem;
-      top: 50%;
+      bottom: 4.5rem;
       z-index: 90;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.6rem;
@@ -1390,7 +1390,7 @@
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        secLabel.textContent = e.target.id.toUpperCase();
+        secLabel.textContent = e.target.id === 'hero' ? '' : e.target.id.toUpperCase();
         navLinks.forEach(a => a.classList.remove('active'));
         const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
         if (link) link.classList.add('active');
