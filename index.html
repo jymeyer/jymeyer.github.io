@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jean-Yves Meyer – IT Product Manager</title>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,700;0,800;0,900;1,900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link href="fonts.css" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1338,10 +1338,40 @@
         <span>IT Product Manager · Bayern</span>
         <a href="#" id="backToTop">Back to top ↑</a>
         <button onclick="document.getElementById('impressumModal').classList.add('open')" style="background:none;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);padding:0;">Impressum</button>
+        <button onclick="document.getElementById('datenschutzModal').classList.add('open')" style="background:none;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);padding:0;">Datenschutz</button>
       </div>
     </footer>
   </section>
 
+</div>
+
+<!-- DATENSCHUTZ MODAL -->
+<div class="modal-overlay" id="datenschutzModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('datenschutzModal').classList.remove('open')">ESC ✕</button>
+    <div class="modal-label">// Privacy Policy</div>
+    <div class="modal-title">Datenschutz</div>
+    <div class="modal-body">
+      <div class="modal-section-title">Verantwortlicher</div>
+      <p>Jean-Yves Meyer, Kapuzinerstraße 31, 89407 Dillingen a.d.Donau<br/>
+      E-Mail: <a href="mailto:jean-yves.meyer@gmx.de">jean-yves.meyer@gmx.de</a></p>
+
+      <div class="modal-section-title">Hosting</div>
+      <p>Diese Website wird über GitHub Pages (GitHub Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA) gehostet. Beim Aufruf der Seite verarbeitet GitHub technische Daten wie IP-Adresse und Browserinformationen gemäß der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank">GitHub Datenschutzerklärung</a>.</p>
+
+      <div class="modal-section-title">Kontaktformular</div>
+      <p>Nachrichten über das Kontaktformular werden über Web3Forms (Hemito Digital, Indiranagar, Bangalore, Indien) verarbeitet und an meine E-Mail-Adresse weitergeleitet. Übermittelt werden: Name, E-Mail-Adresse und Nachrichtentext. Die Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und nicht dauerhaft gespeichert. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.</p>
+
+      <div class="modal-section-title">Schriftarten</div>
+      <p>Diese Website verwendet Schriftarten (Archivo, Inter, JetBrains Mono), die lokal auf dem Server gespeichert sind. Es findet keine Verbindung zu externen Servern statt.</p>
+
+      <div class="modal-section-title">Cookies &amp; Tracking</div>
+      <p>Diese Website verwendet keine Cookies und setzt kein Tracking oder Analyse-Tools ein. Es werden keine personenbezogenen Daten für Werbezwecke verarbeitet.</p>
+
+      <div class="modal-section-title">Ihre Rechte</div>
+      <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie ein Widerspruchsrecht. Wenden Sie sich dazu per E-Mail an mich. Sie haben zudem das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren.</p>
+    </div>
+  </div>
 </div>
 
 <!-- IMPRESSUM MODAL -->
@@ -1556,7 +1586,10 @@
 
   // Close impressum modal on ESC
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') document.getElementById('impressumModal').classList.remove('open');
+    if (e.key === 'Escape') {
+      document.getElementById('impressumModal').classList.remove('open');
+      document.getElementById('datenschutzModal').classList.remove('open');
+    }
   });
 </script>
 </body>
