@@ -1306,6 +1306,37 @@
     document.getElementById('stateText').textContent = isAlert ? 'SYSTEM_STATE: HIGH_ALERT' : 'SYSTEM_STATE: STABLE';
   });
 
+  // Stat counter animation
+  const statVals = document.querySelectorAll('.stat-val');
+  statVals.forEach(el => {
+    const raw = el.textContent.trim();
+    const suffix = raw.replace(/[0-9]/g, '');
+    const target = parseInt(raw);
+    el.dataset.target = target;
+    el.dataset.suffix = suffix;
+    el.textContent = '0' + suffix;
+  });
+  const statsObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      statVals.forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix;
+        const duration = 700;
+        const start = performance.now();
+        function tick(now) {
+          const t = Math.min((now - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(ease * target) + suffix;
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+      statsObserver.disconnect();
+    });
+  }, { threshold: 0.5 });
+  statsObserver.observe(document.querySelector('.stats-row'));
+
   // Close impressum modal on ESC
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') document.getElementById('impressumModal').classList.remove('open');
