@@ -179,6 +179,13 @@
       text-transform: uppercase;
       color: var(--green);
       margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .sec-label.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .sec-label::before {
       content: '';
@@ -1453,6 +1460,12 @@
     btn.disabled = false;
     btn.textContent = 'Send ↗';
   });
+
+  // Section labels slide up
+  const secLabelObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.8 });
+  document.querySelectorAll('.sec-label').forEach(el => secLabelObs.observe(el));
 
   // Sprint cards slide-in from right
   const sprintCards = document.querySelectorAll('.sprint-card');
