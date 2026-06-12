@@ -1293,13 +1293,10 @@
     btn.textContent = 'Send ↗';
   });
 
-  // Scroll hint — hide on first scroll
+  // Scroll hint — hide when scrolled, show when back at top
   const scrollHint = document.getElementById('scrollHint');
-  window.addEventListener('scroll', function hideHint() {
-    if (window.scrollY > 40) {
-      scrollHint.classList.add('hidden');
-      window.removeEventListener('scroll', hideHint);
-    }
+  window.addEventListener('scroll', function() {
+    scrollHint.classList.toggle('hidden', window.scrollY > 40);
   }, { passive: true });
 
   // System state toggle
