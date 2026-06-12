@@ -1335,7 +1335,7 @@
       <div class="footer-inner">
         <span>© 2026 Jean-Yves Meyer</span>
         <span>IT Product Manager · Bayern</span>
-        <a href="#hero">Back to top ↑</a>
+        <a href="#" id="backToTop">Back to top ↑</a>
         <button onclick="document.getElementById('impressumModal').classList.add('open')" style="background:none;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);padding:0;">Impressum</button>
       </div>
     </footer>
@@ -1462,11 +1462,13 @@
     btn.textContent = 'Send ↗';
   });
 
-  // Logo scrollt nach oben ohne # in der URL
-  document.getElementById('navLogo').addEventListener('click', e => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    history.pushState(null, '', location.pathname);
+  // Logo + Back to top scrollen nach oben ohne # in der URL
+  ['navLogo', 'backToTop'].forEach(id => {
+    document.getElementById(id).addEventListener('click', e => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      history.pushState(null, '', location.pathname);
+    });
   });
 
   // Nav-Links: scroll mit Nav-Offset damit Inhalt sauber sichtbar ist
