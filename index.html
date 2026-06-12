@@ -211,7 +211,7 @@
       margin-bottom: 2rem;
     }
     .hero-title {
-      font-size: clamp(3.2rem, 10.5vw, 11rem);
+      font-size: clamp(2.4rem, 10.5vw, 11rem);
       margin-bottom: 4rem;
     }
     .hero-title .accent { color: var(--green); }
@@ -362,7 +362,7 @@
     }
     .sprint-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
       gap: 1.4rem;
     }
     .sprint-card {
@@ -681,6 +681,13 @@
       .sprint-metrics { grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
       .metric-val { font-size: 1.1rem; }
       .nav-state { display: none; }
+      .cert-card {
+        flex-wrap: wrap;
+        padding: 1.5rem 1.6rem;
+      }
+      .cert-name { overflow-wrap: anywhere; }
+      .sprint-card { padding: 1.8rem 1.5rem; }
+      .dna-card { padding: 2rem 1.6rem; }
     }
   </style>
 </head>
