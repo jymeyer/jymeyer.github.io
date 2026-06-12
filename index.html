@@ -1468,6 +1468,17 @@
     history.pushState(null, '', location.pathname);
   });
 
+  // Nav-Links: scroll mit Nav-Offset damit Inhalt sauber sichtbar ist
+  const NAV_OFFSET = 64;
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      window.scrollTo({ top: target.offsetTop + NAV_OFFSET, behavior: 'smooth' });
+    });
+  });
+
   // Section labels slide up
   const secLabelObs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
