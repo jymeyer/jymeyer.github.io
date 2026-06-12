@@ -1064,6 +1064,16 @@
     const form = this;
     const btn = document.getElementById('sendBtn');
     const status = document.getElementById('formStatus');
+    // E-Mail-Format prüfen
+    const email = form.elements['email'].value.trim();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email);
+    if (!emailOk) {
+      status.classList.add('error');
+      status.textContent = '// INVALID_INPUT — Bitte eine gültige E-Mail-Adresse eingeben.';
+      status.style.display = 'block';
+      form.elements['email'].focus();
+      return;
+    }
     btn.disabled = true;
     btn.textContent = 'Sende ...';
     status.style.display = 'none';
