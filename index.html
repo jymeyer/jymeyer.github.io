@@ -585,9 +585,9 @@
       color: var(--grey);
       margin-bottom: 2.5rem;
     }
-    .mail-form { display: flex; gap: 0.8rem; }
-    .mail-form input {
-      flex: 1;
+    .mail-form { display: flex; flex-direction: column; gap: 0.8rem; }
+    .mail-form input, .mail-form textarea {
+      width: 100%;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
       letter-spacing: 0.05em;
@@ -598,8 +598,25 @@
       outline: none;
       transition: border-color 0.2s;
     }
-    .mail-form input:focus { border-color: var(--green); }
-    .mail-form input::placeholder { color: var(--dim); }
+    .mail-form textarea { resize: vertical; min-height: 130px; }
+    .mail-form input:focus, .mail-form textarea:focus { border-color: var(--green); }
+    .mail-form input::placeholder, .mail-form textarea::placeholder { color: var(--dim); }
+    .mail-form .btn { align-self: flex-start; }
+    .form-status {
+      display: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      padding: 1rem 1.3rem;
+      border: 1px solid var(--green-dim);
+      background: var(--green-bg);
+      color: var(--green);
+    }
+    .form-status.error {
+      border-color: #8a5050;
+      background: rgba(200,100,100,0.1);
+      color: #d99;
+    }
     .channels-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
@@ -962,8 +979,14 @@
       <div>
         <p class="contact-text">Sie suchen einen Product Manager, der messbare Ergebnisse liefert? Schreiben Sie mir — ich bin ab September 2026 für neue Herausforderungen verfügbar.</p>
         <form class="mail-form" id="mailForm">
-          <input type="email" id="mailInput" placeholder="ihre@email.de" required/>
-          <button type="submit" class="btn btn-green">Send ↗</button>
+          <input type="hidden" name="access_key" value="c0e9bc46-ea78-4f4c-b054-c25e273b4a8b"/>
+          <input type="hidden" name="subject" value="Kontaktanfrage über jeamr.com"/>
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off"/>
+          <input type="text" name="name" placeholder="Ihr Name" required/>
+          <input type="email" name="email" placeholder="ihre@email.de" required/>
+          <textarea name="message" placeholder="Ihre Nachricht ..." required></textarea>
+          <button type="submit" class="btn btn-green" id="sendBtn">Send ↗</button>
+          <div class="form-status" id="formStatus"></div>
         </form>
       </div>
       <div>
@@ -1035,13 +1058,36 @@
   tick();
   setInterval(tick, 30000);
 
-  // Mail form → mailto
-  document.getElementById('mailForm').addEventListener('submit', function(e) {
+  // Mail form → Web3Forms
+  document.getElementById('mailForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const from = document.getElementById('mailInput').value;
-    const subject = encodeURIComponent('Kontaktanfrage über jymeyer.github.io');
-    const body = encodeURIComponent('Hallo Jean-Yves,\n\nbitte kontaktiere mich unter: ' + from + '\n\n');
-    window.location.href = 'mailto:jean-yves.meyer@gmx.de?subject=' + subject + '&body=' + body;
+    const form = this;
+    const btn = document.getElementById('sendBtn');
+    const status = document.getElementById('formStatus');
+    btn.disabled = true;
+    btn.textContent = 'Sende ...';
+    status.style.display = 'none';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(form)
+      });
+      const data = await res.json();
+      if (data.success) {
+        status.classList.remove('error');
+        status.textContent = '// TRANSMISSION_COMPLETE — Vielen Dank, ich melde mich zeitnah.';
+        form.reset();
+      } else {
+        status.classList.add('error');
+        status.textContent = '// ERROR — Senden fehlgeschlagen. Bitte direkt per E-Mail kontaktieren.';
+      }
+    } catch (err) {
+      status.classList.add('error');
+      status.textContent = '// ERROR — Keine Verbindung. Bitte direkt per E-Mail kontaktieren.';
+    }
+    status.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Send ↗';
   });
 </script>
 </body>
