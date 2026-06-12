@@ -93,7 +93,11 @@
       border: 1px solid var(--line);
       padding: 0.45rem 0.9rem;
       background: var(--bg-soft);
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.2s;
     }
+    .nav-state:hover { border-color: var(--green); }
     .state-dot {
       width: 7px; height: 7px;
       border-radius: 50%;
@@ -672,6 +676,31 @@
     .footer-inner a { color: var(--grey); text-decoration: none; }
     .footer-inner a:hover { color: var(--green); }
 
+    /* ─── HIGH ALERT MODE ─── */
+    body.high-alert {
+      --bg:      #ffffff;
+      --bg-soft: #f2f2f2;
+      --card:    #e8e8e8;
+      --line:    #cccccc;
+      --white:   #0B0D0B;
+      --grey:    #444444;
+      --dim:     #888888;
+    }
+    body.high-alert::before {
+      background-image:
+        linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+    }
+    body.high-alert .nav {
+      background: rgba(255,255,255,0.92);
+    }
+    body.high-alert #stateDot {
+      background: #e53e3e;
+      animation: pulse-red 1s infinite;
+    }
+    body.high-alert .nav-state { color: #e53e3e; border-color: #e53e3e; }
+    @keyframes pulse-red { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
     /* ─── IMPRESSUM MODAL ─── */
     .modal-overlay {
       display: none;
@@ -785,9 +814,9 @@
     <li><a href="#dna">Product DNA</a></li>
     <li><a href="#contact">Kontakt</a></li>
   </ul>
-  <div class="nav-state">
-    <span class="state-dot"></span>
-    SYSTEM_STATE: STABLE
+  <div class="nav-state" id="navState">
+    <span class="state-dot" id="stateDot"></span>
+    <span id="stateText">SYSTEM_STATE: STABLE</span>
   </div>
 </nav>
 
@@ -1225,6 +1254,12 @@
     status.style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Send ↗';
+  });
+
+  // System state toggle
+  document.getElementById('navState').addEventListener('click', function() {
+    const isAlert = document.body.classList.toggle('high-alert');
+    document.getElementById('stateText').textContent = isAlert ? 'SYSTEM_STATE: HIGH_ALERT' : 'SYSTEM_STATE: STABLE';
   });
 
   // Close impressum modal on ESC
