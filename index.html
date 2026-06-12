@@ -361,9 +361,20 @@
       color: var(--grey);
     }
     .sprint-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+      display: flex;
+      flex-direction: row;
       gap: 1.4rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 1rem;
+    }
+    .sprint-grid::-webkit-scrollbar { height: 4px; }
+    .sprint-grid::-webkit-scrollbar-track { background: var(--line); }
+    .sprint-grid::-webkit-scrollbar-thumb { background: var(--green-dim); }
+    .sprint-card {
+      flex: 0 0 360px;
+      scroll-snap-align: start;
     }
     .sprint-card {
       background: var(--card);
