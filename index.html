@@ -908,7 +908,7 @@
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="#hero" class="nav-logo">JY://</a>
+  <a href="#" class="nav-logo" id="navLogo">JY://</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -1459,6 +1459,13 @@
     status.style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Send ↗';
+  });
+
+  // Logo scrollt nach oben ohne # in der URL
+  document.getElementById('navLogo').addEventListener('click', e => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.pushState(null, '', location.pathname);
   });
 
   // Section labels slide up
