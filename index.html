@@ -545,39 +545,55 @@
     }
     .dna-card:hover .dna-plus { border-color: var(--green); color: var(--green); }
     .dna-card.open .dna-plus { transform: rotate(45deg); border-color: var(--green); color: var(--green); }
-    .dna-tools {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
-      color: var(--dim);
-      margin-top: 2.5rem;
-    }
     .dna-detail {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease;
+      transition: max-height 0.45s ease;
     }
-    .dna-card.open .dna-detail { max-height: 300px; }
-    .dna-detail ul {
-      list-style: none;
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
+    .dna-card.open .dna-detail { max-height: 600px; }
+    .dna-detail-inner {
+      padding-top: 1.8rem;
+      margin-top: 1.8rem;
       border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
     }
-    .dna-detail li {
-      font-size: 0.92rem;
+    .dna-detail p {
+      font-size: 0.95rem;
+      line-height: 1.65;
       color: var(--grey);
-      line-height: 1.6;
-      padding-left: 1.4rem;
-      position: relative;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.4rem;
     }
-    .dna-detail li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--green);
+    .dna-group-label {
       font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 0.7rem;
+    }
+    .dna-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .dna-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid var(--line);
+      color: var(--grey);
+    }
+    .dna-tag.filled {
+      background: var(--green-bg);
+      border-color: var(--green-dim);
+      color: var(--green);
+    }
+    .dna-tag.muted {
+      background: var(--bg-soft);
+      color: var(--dim);
     }
 
     /* ─── CONTACT ─── */
@@ -1063,63 +1079,159 @@
     </div>
 
     <div class="dna-grid">
-      <div class="dna-card" onclick="this.classList.toggle('open')">
+      <div class="dna-card">
         <div class="dna-cat">Strategy</div>
         <div class="dna-name">Strategie</div>
         <div class="dna-sub">Vision &amp; Richtung</div>
         <div class="dna-detail">
-          <ul>
-            <li>Produktroadmaps definieren und umsetzen</li>
-            <li>Priorisierung nach Business Value &amp; OKRs</li>
-            <li>Stakeholder-Management im Enterprise-Umfeld</li>
-          </ul>
+          <div class="dna-detail-inner">
+            <p>Definieren was gebaut wird und warum — Produktvision mit Geschäftszielen und Marktchancen in Einklang bringen.</p>
+            <div>
+              <div class="dna-group-label">Core Competencies</div>
+              <div class="dna-tags">
+                <span class="dna-tag filled">Product Roadmapping</span>
+                <span class="dna-tag filled">OKR Frameworks</span>
+                <span class="dna-tag filled">Market Analysis</span>
+                <span class="dna-tag filled">Stakeholder Alignment</span>
+              </div>
+            </div>
+            <div>
+              <div class="dna-group-label">Methodologies</div>
+              <div class="dna-tags">
+                <span class="dna-tag">Lean Canvas</span>
+                <span class="dna-tag">Jobs-to-be-Done</span>
+                <span class="dna-tag">Impact Mapping</span>
+                <span class="dna-tag">Design Thinking</span>
+              </div>
+            </div>
+            <div>
+              <div class="dna-group-label">Platforms &amp; Tools</div>
+              <div class="dna-tags">
+                <span class="dna-tag muted">Confluence</span>
+                <span class="dna-tag muted">Notion</span>
+                <span class="dna-tag muted">Miro</span>
+                <span class="dna-tag muted">Google Analytics</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="dna-tools">Roadmapping · OKRs · Priorisierung +3</div>
         <div class="dna-plus">+</div>
       </div>
 
-      <div class="dna-card" onclick="this.classList.toggle('open')">
+      <div class="dna-card">
         <div class="dna-cat">Discovery</div>
         <div class="dna-name">Discovery</div>
         <div class="dna-sub">Anforderungen &amp; Validierung</div>
         <div class="dna-detail">
-          <ul>
-            <li>Anforderungserhebung mit Kunden &amp; Stakeholdern</li>
-            <li>User Stories schreiben und verfeinern</li>
-            <li>Kundenfeedback in Entwickler-Input übersetzen</li>
-          </ul>
+          <div class="dna-detail-inner">
+            <p>Nutzerbedürfnisse verstehen und validieren — Anforderungen strukturiert erheben und in priorisierte Backlogs übersetzen.</p>
+            <div>
+              <div class="dna-group-label">Core Competencies</div>
+              <div class="dna-tags">
+                <span class="dna-tag filled">User Research</span>
+                <span class="dna-tag filled">Requirements Engineering</span>
+                <span class="dna-tag filled">Backlog Management</span>
+                <span class="dna-tag filled">Priorisierung</span>
+              </div>
+            </div>
+            <div>
+              <div class="dna-group-label">Methodologies</div>
+              <div class="dna-tags">
+                <span class="dna-tag">User Interviews</span>
+                <span class="dna-tag">Story Mapping</span>
+                <span class="dna-tag">Kano Model</span>
+                <span class="dna-tag">Personas</span>
+              </div>
+            </div>
+            <div>
+              <div class="dna-group-label">Platforms &amp; Tools</div>
+              <div class="dna-tags">
+                <span class="dna-tag muted">Jira</span>
+                <span class="dna-tag muted">Confluence</span>
+                <span class="dna-tag muted">Miro</span>
+                <span class="dna-tag muted">Hotjar</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="dna-tools">User Stories · Backlog · Refinement +3</div>
         <div class="dna-plus">+</div>
       </div>
 
-      <div class="dna-card" onclick="this.classList.toggle('open')">
+      <div class="dna-card">
         <div class="dna-cat">Development</div>
         <div class="dna-name">Delivery</div>
         <div class="dna-sub">Agil bauen &amp; iterieren</div>
         <div class="dna-detail">
-          <ul>
-            <li>Scrum &amp; Kanban in der Praxis (PSPO I zertifiziert)</li>
-            <li>Sprint-Planung mit cross-funktionalen Teams</li>
-            <li>Monatliche Releases konsistent sicherstellen</li>
-          </ul>
+          <div class="dna-detail-inner">
+            <p>Konsistent liefern — cross-funktionale Teams führen und monatliche Releases in einem agilen Umfeld sicherstellen.</p>
+            <div>
+              <div class="dna-group-label">Core Competencies</div>
+              <div class="dna-tags">
+                <span class="dna-tag filled">Sprint Planning</span>
+                <span class="dna-tag filled">Release Management</span>
+                <span class="dna-tag filled">Cross-functional Leadership</span>
+                <span class="dna-tag filled">PSPO I zertifiziert</span>
+              </div>
+            </div>
+            <div>
+              <div class="dna-group-label">Methodologies</div>
+              <div class="dna-tags">
+                <span class="dna-tag">Scrum</span>
+                <span class="dna-tag">Kanban</span>
+                <span class="dna-tag">Retrospectives</span>
+                <span class="dna-tag">Continuous Delivery</span>
+              </div>
+            </div>
+            <div>
+              <div class="dna-group-label">Platforms &amp; Tools</div>
+              <div class="dna-tags">
+                <span class="dna-tag muted">Jira</span>
+                <span class="dna-tag muted">Azure DevOps</span>
+                <span class="dna-tag muted">Slack</span>
+                <span class="dna-tag muted">GitHub</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="dna-tools">Scrum · Kanban · Jira +3</div>
         <div class="dna-plus">+</div>
       </div>
 
-      <div class="dna-card" onclick="this.classList.toggle('open')">
+      <div class="dna-card">
         <div class="dna-cat">Tech</div>
         <div class="dna-name">Technologie</div>
         <div class="dna-sub">Fundament aus der Entwicklung</div>
         <div class="dna-detail">
-          <ul>
-            <li>Ausbildung als Fachinformatiker Anwendungsentwicklung</li>
-            <li>Azure &amp; Active Directory Administration</li>
-            <li>SQL, Scripting, HTML/CSS</li>
-          </ul>
+          <div class="dna-detail-inner">
+            <p>Technisches Verständnis aus der Praxis — von der Anwendungsentwicklung bis zur Cloud-Administration.</p>
+            <div>
+              <div class="dna-group-label">Core Competencies</div>
+              <div class="dna-tags">
+                <span class="dna-tag filled">API Understanding</span>
+                <span class="dna-tag filled">Datenbankabfragen</span>
+                <span class="dna-tag filled">Cloud Administration</span>
+                <span class="dna-tag filled">Tech Documentation</span>
+              </div>
+            </div>
+            <div>
+              <div class="dna-group-label">Methodologies</div>
+              <div class="dna-tags">
+                <span class="dna-tag">SQL Scripting</span>
+                <span class="dna-tag">Azure Administration</span>
+                <span class="dna-tag">HTML/CSS</span>
+                <span class="dna-tag">Systemintegration</span>
+              </div>
+            </div>
+            <div>
+              <div class="dna-group-label">Platforms &amp; Tools</div>
+              <div class="dna-tags">
+                <span class="dna-tag muted">Azure</span>
+                <span class="dna-tag muted">Active Directory</span>
+                <span class="dna-tag muted">VS Code</span>
+                <span class="dna-tag muted">Git</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="dna-tools">Azure · SQL · Scripting +3</div>
         <div class="dna-plus">+</div>
       </div>
     </div>
@@ -1292,6 +1404,15 @@
     status.style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Send ↗';
+  });
+
+  // DNA accordion — only one card open at a time
+  document.querySelectorAll('.dna-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const isOpen = card.classList.contains('open');
+      document.querySelectorAll('.dna-card').forEach(c => c.classList.remove('open'));
+      if (!isOpen) card.classList.add('open');
+    });
   });
 
   // Scroll hint — hide when scrolled, show when back at top
