@@ -679,8 +679,8 @@
 
     /* ─── SCROLL HINT ─── */
     .scroll-hint {
-      position: absolute;
-      bottom: 5rem;
+      position: fixed;
+      bottom: 3.5rem;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -690,6 +690,7 @@
       opacity: 1;
       transition: opacity 0.4s ease;
       pointer-events: none;
+      z-index: 90;
     }
     .scroll-hint.hidden { opacity: 0; }
     .scroll-hint-label {
