@@ -727,6 +727,17 @@
       50% { transform: translateY(5px); }
     }
 
+    /* ─── SPRINT CARD SLIDE-IN ─── */
+    .sprint-card {
+      opacity: 0;
+      transform: translateX(80px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .sprint-card.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
     /* ─── HIGH ALERT MODE ─── */
     body.high-alert {
       --bg:      #ffffff;
@@ -1406,6 +1417,19 @@
     btn.disabled = false;
     btn.textContent = 'Send ↗';
   });
+
+  // Sprint cards slide-in from right
+  const sprintCards = document.querySelectorAll('.sprint-card');
+  const sprintObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      sprintCards.forEach((card, i) => {
+        setTimeout(() => card.classList.add('visible'), i * 120);
+      });
+      sprintObserver.disconnect();
+    });
+  }, { threshold: 0.2 });
+  sprintObserver.observe(document.querySelector('.sprint-grid'));
 
   // DNA accordion — only one card open at a time
   document.querySelectorAll('.dna-card').forEach(card => {
