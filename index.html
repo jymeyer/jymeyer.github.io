@@ -1,11 +1,674 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Jean-Yves Meyer – IT Product Manager</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jean-Yves Meyer – IT Product Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #1a1a2e;
+      --cream:      #faf7f2;
+      --violet:     #6c4ecb;
+      --coral:      #f4613a;
+      --sky:        #3ab8f4;
+      --mint:       #2ecfab;
+      --soft:       #f0ecff;
+      --muted:      #6b6b8a;
+      --border:     rgba(108,78,203,0.15);
+      --radius:     14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 6vw;
+      background: rgba(250,247,242,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--violet);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--violet); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 6vw 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 40%, rgba(108,78,203,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(58,184,244,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 30% 30% at 60% 90%, rgba(244,97,58,0.08) 0%, transparent 60%);
+    }
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.18;
+      animation: float 8s ease-in-out infinite;
+    }
+    .blob-1 { width: 400px; height: 400px; background: var(--violet); top: -80px; right: 5%; animation-delay: 0s; }
+    .blob-2 { width: 280px; height: 280px; background: var(--coral); bottom: 5%; right: 25%; animation-delay: -3s; }
+    .blob-3 { width: 220px; height: 220px; background: var(--sky); top: 30%; left: -60px; animation-delay: -5s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.05); }
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 680px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--violet);
+      background: var(--soft); padding: 0.35rem 0.9rem;
+      border-radius: 999px; margin-bottom: 1.8rem;
+    }
+    .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--coral); display: inline-block; }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.6rem;
+    }
+    h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--violet);
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.8rem;
+      font-weight: 400;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--violet); color: #fff;
+      padding: 0.85rem 2rem; border-radius: 999px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(108,78,203,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(108,78,203,0.4); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--ink);
+      padding: 0.85rem 2rem; border-radius: 999px;
+      border: 1.5px solid var(--border);
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--violet); color: var(--violet); }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 4rem;
+      padding-top: 2.5rem; border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat-item { }
+    .stat-number {
+      font-family: 'Fraunces', serif;
+      font-size: 2.2rem; font-weight: 700;
+      color: var(--ink); line-height: 1;
+    }
+    .stat-number span { color: var(--coral); }
+    .stat-label { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; font-weight: 500; }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 6vw; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--coral);
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: ''; width: 24px; height: 2px; background: var(--coral); display: block;
+    }
+    h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; letter-spacing: -0.03em;
+      line-height: 1.15; margin-bottom: 3.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--soft); border-radius: 2rem; margin: 0 2vw; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 1.2rem; font-size: 1.05rem; }
+    .about-text p strong { color: var(--ink); }
+    .skills-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    }
+    .skill-card {
+      background: #fff; border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(108,78,203,0.1); }
+    .skill-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .skill-title { font-weight: 600; font-size: 0.9rem; color: var(--ink); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.6rem; }
+    .tag {
+      font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.6rem;
+      border-radius: 999px; background: var(--soft); color: var(--violet);
+    }
+
+    /* ── CV ── */
+    #cv { }
+    .cv-timeline { position: relative; padding-left: 2rem; }
+    .cv-timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--violet), var(--sky), var(--mint));
+      border-radius: 2px;
+    }
+    .cv-entry {
+      position: relative; margin-bottom: 3rem;
+      padding: 1.8rem 2rem;
+      background: #fff; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cv-entry:hover { transform: translateX(4px); box-shadow: 0 8px 28px rgba(108,78,203,0.09); }
+    .cv-dot {
+      position: absolute; left: -2.6rem; top: 1.8rem;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--violet);
+      border: 3px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--violet);
+    }
+    .cv-meta {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 0.8rem; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .cv-role { font-weight: 700; font-size: 1.05rem; color: var(--ink); }
+    .cv-company { font-weight: 500; color: var(--violet); font-size: 0.9rem; margin-top: 0.15rem; }
+    .cv-period {
+      font-size: 0.8rem; font-weight: 600; color: #fff;
+      background: var(--violet); padding: 0.25rem 0.8rem;
+      border-radius: 999px; white-space: nowrap;
+    }
+    .cv-entry ul { padding-left: 1.2rem; }
+    .cv-entry li { font-size: 0.93rem; color: var(--muted); margin-bottom: 0.4rem; }
+
+    .cv-edu {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem;
+      margin-top: 1rem;
+    }
+    .edu-card {
+      background: var(--soft); border-radius: var(--radius);
+      padding: 1.4rem 1.6rem; border: 1px solid var(--border);
+    }
+    .edu-degree { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
+    .edu-school { color: var(--violet); font-size: 0.88rem; font-weight: 500; margin: 0.3rem 0; }
+    .edu-year { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── CERTS ── */
+    .cert-strip {
+      display: flex; align-items: center; gap: 1rem;
+      background: linear-gradient(135deg, var(--violet), #9b6ef3);
+      border-radius: var(--radius); padding: 1.4rem 2rem;
+      color: #fff; margin-top: 2rem;
+    }
+    .cert-badge { font-size: 2rem; }
+    .cert-name { font-weight: 700; font-size: 1rem; }
+    .cert-date { font-size: 0.83rem; opacity: 0.8; }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--soft); border-radius: 2rem; margin: 0 2vw; }
+    .projects-placeholder {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
+    }
+    .project-card {
+      background: #fff; border-radius: var(--radius);
+      padding: 2rem; border: 1.5px dashed var(--border);
+      display: flex; flex-direction: column; align-items: flex-start; gap: 0.8rem;
+      transition: border-color 0.2s;
+    }
+    .project-card:hover { border-color: var(--violet); }
+    .project-num {
+      font-family: 'Fraunces', serif;
+      font-size: 3rem; font-weight: 700; color: var(--border);
+      line-height: 1;
+    }
+    .project-title { font-weight: 700; color: var(--ink); font-size: 1rem; }
+    .project-coming { font-size: 0.85rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact { }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
+    .contact-info h3 { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; }
+    .contact-info p { color: var(--muted); margin-bottom: 1.5rem; font-size: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.7rem;
+      color: var(--violet); font-weight: 600; text-decoration: none;
+      font-size: 0.95rem; margin-bottom: 0.8rem;
+      transition: gap 0.2s;
+    }
+    .contact-link:hover { gap: 1rem; }
+    .contact-link .icon { font-size: 1.1rem; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    label { font-size: 0.83rem; font-weight: 600; color: var(--ink); letter-spacing: 0.03em; }
+    input, textarea {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 0.8rem 1rem;
+      font-size: 0.95rem; color: var(--ink);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    input:focus, textarea:focus {
+      border-color: var(--violet);
+      box-shadow: 0 0 0 3px rgba(108,78,203,0.1);
+    }
+    textarea { resize: vertical; min-height: 140px; }
+    .btn-send {
+      background: linear-gradient(135deg, var(--violet), var(--coral));
+      color: #fff; border: none; border-radius: 999px;
+      padding: 0.9rem 2.2rem; font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem; font-weight: 600; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      align-self: flex-start;
+      box-shadow: 0 4px 20px rgba(108,78,203,0.25);
+    }
+    .btn-send:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(108,78,203,0.35); }
+    #form-success {
+      display: none; background: var(--soft); border-radius: var(--radius);
+      padding: 1rem 1.4rem; color: var(--violet); font-weight: 600;
+      border: 1px solid var(--border); font-size: 0.93rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2.5rem 6vw;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--violet); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+      nav { padding: 1rem 4vw; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 4rem 4vw; }
+      #about, #projects { margin: 0; border-radius: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-blob { animation: none; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Hallo, ich bin Jean-Yves Meyer</h1>
-    <p>IT Product Manager aus dem Saarland</p>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">JY Meyer</a>
+  <ul class="nav-links">
+    <li><a href="#about">Über mich</a></li>
+    <li><a href="#cv">CV</a></li>
+    <li><a href="#projects">Projekte</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-blob blob-1"></div>
+  <div class="hero-blob blob-2"></div>
+  <div class="hero-blob blob-3"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span></span> Verfügbar ab September 2026</div>
+    <h1>IT Product Manager<br /><em>mit Herz &amp; Verstand</em></h1>
+    <p class="hero-sub">
+      Vom Fachinformatiker zum vollverantwortlichen Product Manager —
+      ich übersetze komplexe Anforderungen in Produkte, die Menschen wirklich nutzen.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">↗ Kontakt aufnehmen</a>
+      <a href="#cv" class="btn-secondary">Lebenslauf ansehen</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">7<span>+</span></div>
+        <div class="stat-label">Jahre IT-Erfahrung</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">6<span></span></div>
+        <div class="stat-label">Feature-Launches</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10<span>+</span></div>
+        <div class="stat-label">Enterprise-Kunden</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">1<span></span></div>
+        <div class="stat-label">PSPO I Zertifikat</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Über mich</div>
+  <h2>Produkt trifft<br />Technologie</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        Ich bin <strong>Jean-Yves Meyer</strong>, IT Product Manager aus <strong>Bayern</strong> —
+        mit einem Werdegang, der im Code begann und heute in der Produktstrategie lebt.
+      </p>
+      <p>
+        Als <strong>Fachinformatiker für Anwendungsentwicklung</strong> ausgebildet, habe ich
+        früh gelernt, wie Software entsteht. Heute nutze ich dieses technische Fundament,
+        um als Bindeglied zwischen Engineering, Business und Nutzer zu wirken.
+      </p>
+      <p>
+        Mein Fokus liegt auf <strong>SaaS-Plattformen für den öffentlichen Sektor und die
+        Versicherungsbranche</strong> — Umfelder, die komplexe Anforderungen, hohe
+        Compliance-Standards und viele Stakeholder vereinen.
+      </p>
+      <p>
+        Ich verliere dabei nie das Wichtigste aus dem Blick: <strong>den Menschen,
+        der das Produkt am Ende benutzt.</strong>
+      </p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🗺️</div>
+        <div class="skill-title">Product Strategy</div>
+        <div class="skill-tags">
+          <span class="tag">Roadmap</span>
+          <span class="tag">OKRs</span>
+          <span class="tag">Priorisierung</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚙️</div>
+        <div class="skill-title">Agile & Delivery</div>
+        <div class="skill-tags">
+          <span class="tag">Scrum</span>
+          <span class="tag">Kanban</span>
+          <span class="tag">PSPO I</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📋</div>
+        <div class="skill-title">Requirements</div>
+        <div class="skill-tags">
+          <span class="tag">User Stories</span>
+          <span class="tag">Backlog</span>
+          <span class="tag">Jira</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔧</div>
+        <div class="skill-title">Tech & Tools</div>
+        <div class="skill-tags">
+          <span class="tag">Azure</span>
+          <span class="tag">SQL</span>
+          <span class="tag">HTML/CSS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CV -->
+<section id="cv">
+  <div class="section-label">Lebenslauf</div>
+  <h2>Mein Werdegang</h2>
+
+  <div class="cv-timeline">
+    <div class="cv-entry">
+      <div class="cv-dot"></div>
+      <div class="cv-meta">
+        <div>
+          <div class="cv-role">Product Manager</div>
+          <div class="cv-company">SYNCPILOT Group · Augsburg</div>
+        </div>
+        <div class="cv-period">04/2025 – heute</div>
+      </div>
+      <ul>
+        <li>Vollständige Produktverantwortung für SaaS-Terminbuchungsplattform mit 10+ Enterprise-Kunden im öffentlichen Sektor und Insurance Sektor</li>
+        <li>Produktroadmap definiert und umgesetzt; monatliche Releases mit cross-funktionalem Team von 7 Personen konsistent sichergestellt</li>
+        <li>6 strategische Feature-Launches erfolgreich umgesetzt – Plattform-Fit im Public-Sector-Markt verbessert</li>
+        <li>Feature-Priorisierung auf Basis von Business Value, technischen Constraints und OKRs</li>
+      </ul>
+    </div>
+
+    <div class="cv-entry">
+      <div class="cv-dot"></div>
+      <div class="cv-meta">
+        <div>
+          <div class="cv-role">Junior Product Manager</div>
+          <div class="cv-company">SYNCPILOT Group · Augsburg</div>
+        </div>
+        <div class="cv-period">08/2023 – 03/2025</div>
+      </div>
+      <ul>
+        <li>Aktive Mitgestaltung der Produktentwicklung im agilen Umfeld; Einbindung in jeden zweiwöchigen Sprint und Release</li>
+        <li>Eigenständige Anforderungserhebung und Verfeinerung von User Stories</li>
+        <li>Sprint-Planung und Roadmap-Diskussionen eigenverantwortlich mitgestaltet</li>
+      </ul>
+    </div>
+
+    <div class="cv-entry">
+      <div class="cv-dot" style="background: var(--sky); box-shadow: 0 0 0 2px var(--sky);"></div>
+      <div class="cv-meta">
+        <div>
+          <div class="cv-role">Senior IT Specialist Applications & Customer Care</div>
+          <div class="cv-company">SYNCPILOT Group · Augsburg</div>
+        </div>
+        <div class="cv-period">04/2022 – 10/2023</div>
+      </div>
+      <ul>
+        <li>Technischer Support und stabiler Betrieb von IT-Systemen sichergestellt</li>
+        <li>Active Directory und Azure-basierte Dienste administriert</li>
+        <li>Systemdokumentation und Wissenstransfer aufgebaut</li>
+      </ul>
+    </div>
+
+    <div class="cv-entry">
+      <div class="cv-dot" style="background: var(--sky); box-shadow: 0 0 0 2px var(--sky);"></div>
+      <div class="cv-meta">
+        <div>
+          <div class="cv-role">IT Specialist</div>
+          <div class="cv-company">SYNCPILOT Group · Augsburg</div>
+        </div>
+        <div class="cv-period">05/2019 – 04/2022</div>
+      </div>
+      <ul>
+        <li>IT-Support und Troubleshooting; Installation, Administration und Wartung von Systemen</li>
+        <li>Erste Erfahrungen in der Zusammenarbeit mit internen Stakeholdern</li>
+        <li>Scripting- und SQL-Kenntnisse aufgebaut</li>
+      </ul>
+    </div>
+
+    <div class="cv-entry">
+      <div class="cv-dot" style="background: var(--mint); box-shadow: 0 0 0 2px var(--mint);"></div>
+      <div class="cv-meta">
+        <div>
+          <div class="cv-role">IT-Projektleitung & Support – Gesundheitswesen</div>
+          <div class="cv-company">TopM Software GmbH · Bobingen</div>
+        </div>
+        <div class="cv-period">06/2018 – 04/2019</div>
+      </div>
+      <ul>
+        <li>ERP-System für ca. 310 Gesundheitsbetriebe implementiert</li>
+        <li>Kundenfeedback in strukturierten Input für Entwicklungsteams übersetzt</li>
+        <li>Endnutzer-Schulungen durchgeführt</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top: 3.5rem;">
+    <div class="section-label">Ausbildung</div>
+    <div class="cv-edu">
+      <div class="edu-card">
+        <div class="edu-degree">Ausbildung Fachinformatiker Anwendungsentwicklung</div>
+        <div class="edu-school">TopM Software GmbH · Bobingen</div>
+        <div class="edu-year">09/2015 – 08/2018</div>
+      </div>
+    </div>
+    <div class="cert-strip">
+      <div class="cert-badge">🏅</div>
+      <div>
+        <div class="cert-name">Professional Scrum Product Owner (PSPO I)</div>
+        <div class="cert-date">Dezember 2024 · Scrum.org</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Projekte</div>
+  <h2>Ausgewählte<br />Arbeiten</h2>
+  <div class="projects-placeholder">
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <div class="project-title">Projekt kommt bald</div>
+      <div class="project-coming">Details werden in Kürze ergänzt.</div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div class="project-title">Projekt kommt bald</div>
+      <div class="project-coming">Details werden in Kürze ergänzt.</div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <div class="project-title">Projekt kommt bald</div>
+      <div class="project-coming">Details werden in Kürze ergänzt.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Kontakt</div>
+  <h2>Lass uns reden</h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Offen für neue Herausforderungen</h3>
+      <p>
+        Ich bin ab September 2026 verfügbar und freue mich über spannende
+        Positionen als IT Product Manager oder Product Owner.
+      </p>
+      <a href="mailto:jean-yves.meyer@gmx.de" class="contact-link">
+        <span class="icon">✉️</span> jean-yves.meyer@gmx.de
+      </a>
+      <a href="https://www.linkedin.com/in/jean-yves-meyer-13b4111a1/" target="_blank" class="contact-link">
+        <span class="icon">💼</span> LinkedIn Profil
+      </a>
+    </div>
+    <div>
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Ihr Name" required />
+          </div>
+          <div class="form-group">
+            <label for="company">Unternehmen</label>
+            <input type="text" id="company" placeholder="Ihr Unternehmen" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" placeholder="ihre@email.de" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Nachricht</label>
+          <textarea id="message" placeholder="Womit kann ich Ihnen helfen?" required></textarea>
+        </div>
+        <button type="submit" class="btn-send">Nachricht senden ↗</button>
+        <div id="form-success">✅ Vielen Dank! Ich melde mich so schnell wie möglich.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Jean-Yves Meyer · <a href="mailto:jean-yves.meyer@gmx.de">jean-yves.meyer@gmx.de</a></p>
+</footer>
+
+<script>
+  // Smooth nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--violet)' : '';
+    });
+  });
+
+  // Contact form (mailto fallback)
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const company = document.getElementById('company').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    const subject = encodeURIComponent('Kontaktanfrage von ' + name + (company ? ' (' + company + ')' : ''));
+    const body = encodeURIComponent('Name: ' + name + '\nUnternehmen: ' + company + '\nE-Mail: ' + email + '\n\nNachricht:\n' + message);
+    window.location.href = 'mailto:jean-yves.meyer@gmx.de?subject=' + subject + '&body=' + body;
+    document.getElementById('form-success').style.display = 'block';
+    this.reset();
+  });
+</script>
 </body>
 </html>
