@@ -1482,7 +1482,7 @@
         form.reset();
       } else {
         status.classList.add('error');
-        status.textContent = '// ERROR — Senden fehlgeschlagen. Bitte direkt per E-Mail kontaktieren.';
+        status.textContent = '// ERROR — ' + (data.message || 'Senden fehlgeschlagen') + '. Bitte direkt per E-Mail kontaktieren.';
       }
     } catch (err) {
       status.classList.add('error');
