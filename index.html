@@ -886,12 +886,7 @@
     body.high-alert .nav {
       background: rgba(255,255,255,0.92);
     }
-    body.high-alert #stateDot {
-      background: #e53e3e;
-      animation: pulse-red 1s infinite;
-    }
-    body.high-alert .nav-state { color: #e53e3e; border-color: #e53e3e; }
-    @keyframes pulse-red { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    body.high-alert .nav-state { color: var(--green); border-color: var(--line); }
 
     /* ─── IMPRESSUM MODAL ─── */
     .modal-overlay {
@@ -1008,8 +1003,7 @@
     <li><a href="#contact">Kontakt</a></li>
   </ul>
   <div class="nav-state" id="navState">
-    <span class="state-dot" id="stateDot"></span>
-    <span id="stateText">SYSTEM_STATE: STABLE</span>
+    <span id="stateText">◐ THEME: DARK</span>
   </div>
 </nav>
 
@@ -1764,8 +1758,8 @@
 
   // System state toggle
   document.getElementById('navState').addEventListener('click', function() {
-    const isAlert = document.body.classList.toggle('high-alert');
-    document.getElementById('stateText').textContent = isAlert ? 'SYSTEM_STATE: HIGH_ALERT' : 'SYSTEM_STATE: STABLE';
+    const isLight = document.body.classList.toggle('high-alert');
+    document.getElementById('stateText').textContent = isLight ? '◑ THEME: LIGHT' : '◐ THEME: DARK';
   });
 
   // Stat counter animation
