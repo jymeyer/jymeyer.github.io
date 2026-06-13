@@ -607,6 +607,79 @@
       color: var(--dim);
     }
 
+    /* ─── INSIGHTS ─── */
+    .insights-head { max-width: 700px; margin-bottom: 4rem; }
+    .insights-title { font-size: clamp(2.8rem, 6vw, 5.5rem); margin-bottom: 2rem; }
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+      gap: 1.4rem;
+    }
+    .insight-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      transition: border-color 0.25s;
+      overflow: hidden;
+    }
+    .insight-card:hover { border-color: var(--green-dim); }
+    .insight-placeholder {
+      padding: 2.2rem 2.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      min-height: 220px;
+      justify-content: space-between;
+    }
+    .insight-li-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .insight-li-logo svg { width: 18px; height: 18px; color: var(--green); flex-shrink: 0; }
+    .insight-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .insight-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--green-dim);
+      background: var(--green-bg);
+    }
+    .insight-teaser {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--grey);
+      flex: 1;
+    }
+    .insight-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .insight-consent {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+      color: var(--dim);
+      line-height: 1.5;
+    }
+    .insight-iframe {
+      width: 100%;
+      height: 570px;
+      border: none;
+      display: none;
+    }
+
     /* ─── CONTACT ─── */
     .contact-title {
       font-size: clamp(3rem, 8vw, 7.5rem);
@@ -916,6 +989,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#dna">Product DNA</a></li>
+    <li><a href="#insights">Insights</a></li>
     <li><a href="#contact">Kontakt</a></li>
   </ul>
   <div class="nav-state" id="navState">
@@ -1295,9 +1369,80 @@
     </div>
   </section>
 
+  <!-- INSIGHTS -->
+  <section id="insights">
+    <div class="sec-label">04 // Insights</div>
+    <div class="insights-head">
+      <h2 class="display insights-title">Insights</h2>
+      <p class="roadmap-sub">Gedanken zu Product Management, SaaS und digitaler Transformation — direkt von LinkedIn.</p>
+    </div>
+    <div class="insights-grid">
+
+      <div class="insight-card" id="post-1">
+        <div class="insight-placeholder">
+          <div class="insight-li-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn · Post
+          </div>
+          <div class="insight-tags">
+            <span class="insight-tag">#ProductManagement</span>
+            <span class="insight-tag">#SaaS</span>
+            <span class="insight-tag">#DigitalTransformation</span>
+          </div>
+          <p class="insight-teaser">Digitale Transformation im öffentlichen Sektor — warum gute Produktarbeit hier mehr bedeutet als Features bauen.</p>
+          <div class="insight-footer">
+            <button class="btn btn-ghost" onclick="loadPost('post-1','https://www.linkedin.com/embed/feed/update/urn:li:activity:7465631709074685952')" style="align-self:flex-start;padding:0.8rem 1.4rem;font-size:0.72rem;">Post laden ↗</button>
+            <p class="insight-consent">Mit dem Laden stimmen Sie der Übertragung von Daten an LinkedIn Ireland Unlimited Company zu.</p>
+          </div>
+        </div>
+        <iframe class="insight-iframe" id="iframe-post-1" frameborder="0" allowfullscreen title="LinkedIn Post"></iframe>
+      </div>
+
+      <div class="insight-card" id="post-2">
+        <div class="insight-placeholder">
+          <div class="insight-li-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn · Post
+          </div>
+          <div class="insight-tags">
+            <span class="insight-tag">#ProductManagement</span>
+            <span class="insight-tag">#Lessons Learned</span>
+          </div>
+          <p class="insight-teaser">Drei Dinge, die ich bei der Entwicklung eines Produkts gelernt habe — und was ich beim nächsten Mal anders machen würde.</p>
+          <div class="insight-footer">
+            <button class="btn btn-ghost" onclick="loadPost('post-2','https://www.linkedin.com/embed/feed/update/urn:li:activity:7467821129643089920')" style="align-self:flex-start;padding:0.8rem 1.4rem;font-size:0.72rem;">Post laden ↗</button>
+            <p class="insight-consent">Mit dem Laden stimmen Sie der Übertragung von Daten an LinkedIn Ireland Unlimited Company zu.</p>
+          </div>
+        </div>
+        <iframe class="insight-iframe" id="iframe-post-2" frameborder="0" allowfullscreen title="LinkedIn Post"></iframe>
+      </div>
+
+      <div class="insight-card" id="post-3">
+        <div class="insight-placeholder">
+          <div class="insight-li-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn · Post
+          </div>
+          <div class="insight-tags">
+            <span class="insight-tag">#ProductManagement</span>
+            <span class="insight-tag">#ProductOwner</span>
+            <span class="insight-tag">#AI</span>
+          </div>
+          <p class="insight-teaser">KI im Product Management — wie sich die Rolle des Product Owners durch Automatisierung verändert und wo der Mensch bleibt.</p>
+          <div class="insight-footer">
+            <button class="btn btn-ghost" onclick="loadPost('post-3','https://www.linkedin.com/embed/feed/update/urn:li:activity:7471147824953548800')" style="align-self:flex-start;padding:0.8rem 1.4rem;font-size:0.72rem;">Post laden ↗</button>
+            <p class="insight-consent">Mit dem Laden stimmen Sie der Übertragung von Daten an LinkedIn Ireland Unlimited Company zu.</p>
+          </div>
+        </div>
+        <iframe class="insight-iframe" id="iframe-post-3" frameborder="0" allowfullscreen title="LinkedIn Post"></iframe>
+      </div>
+
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
-    <div class="sec-label">04 // Direct Connection</div>
+    <div class="sec-label">05 // Direct Connection</div>
     <h2 class="display contact-title">
       Start the<br/>
       <span class="outline">next Sprint</span>
@@ -1618,6 +1763,15 @@
       document.getElementById('datenschutzModal').classList.remove('open');
     }
   });
+
+  function loadPost(cardId, iframeSrc) {
+    const card = document.getElementById(cardId);
+    const placeholder = card.querySelector('.insight-placeholder');
+    const iframe = card.querySelector('.insight-iframe');
+    iframe.src = iframeSrc;
+    placeholder.style.display = 'none';
+    iframe.style.display = 'block';
+  }
 </script>
 </body>
 </html>
