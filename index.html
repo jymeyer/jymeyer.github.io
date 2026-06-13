@@ -1482,7 +1482,10 @@
         form.reset();
       } else {
         status.classList.add('error');
-        status.textContent = '// ERROR — ' + (data.message || 'Senden fehlgeschlagen') + '. Bitte direkt per E-Mail kontaktieren.';
+        const isSpam = data.message && data.message.toLowerCase().includes('spam');
+        status.textContent = isSpam
+          ? '// INVALID_INPUT — Bitte eine gültige E-Mail-Adresse verwenden.'
+          : '// ERROR — Senden fehlgeschlagen. Bitte direkt per E-Mail kontaktieren.';
       }
     } catch (err) {
       status.classList.add('error');
