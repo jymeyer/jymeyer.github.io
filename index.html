@@ -514,8 +514,14 @@
       border: 1px solid var(--line);
       padding: 2.4rem 2.6rem;
       cursor: pointer;
-      transition: border-color 0.25s;
       position: relative;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s;
+    }
+    .dna-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .dna-card:hover { border-color: var(--green-dim); }
     .dna-cat {
@@ -1703,6 +1709,19 @@
     });
   }, { threshold: 0.2 });
   sprintObserver.observe(document.querySelector('.sprint-grid'));
+
+  // DNA cards — slide in from bottom
+  const dnaCards = document.querySelectorAll('.dna-card');
+  const dnaObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      dnaCards.forEach((card, i) => {
+        setTimeout(() => card.classList.add('visible'), i * 100);
+      });
+      dnaObserver.disconnect();
+    });
+  }, { threshold: 0.15 });
+  dnaObserver.observe(document.querySelector('.dna-grid'));
 
   // DNA accordion — only one card open at a time
   document.querySelectorAll('.dna-card').forEach(card => {
