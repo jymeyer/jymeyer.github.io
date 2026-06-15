@@ -1000,6 +1000,80 @@
     }
     body.high-alert .nav-state { color: var(--green); border-color: var(--line); }
 
+    /* ─── EASTER EGG: SECRET TERMINAL ─── */
+    #easterEgg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(0,0,0,0.96);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      backdrop-filter: blur(4px);
+    }
+    #easterEgg.open { display: flex; }
+    #easterEggClose {
+      position: absolute;
+      top: 1.5rem; right: 1.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--dim);
+      background: none;
+      border: 1px solid var(--line);
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    #easterEggClose:hover { border-color: var(--green); color: var(--green); }
+    #easterEggTerminal {
+      width: 100%;
+      max-width: 580px;
+      background: #080A08;
+      border: 1px solid var(--line);
+      padding: 2rem 2.2rem 2.2rem;
+      min-height: 380px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.9;
+    }
+    .ee-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.4rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .ee-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+    .ee-dot:nth-child(1) { background: #ff5f57; }
+    .ee-dot:nth-child(2) { background: #febc2e; }
+    .ee-dot:nth-child(3) { background: #28c840; }
+    .ee-line { display: block; white-space: pre-wrap; }
+    .ee-cmd::before { content: '> '; color: var(--green); }
+    .ee-cmd { color: var(--white); }
+    .ee-out { color: var(--grey); }
+    .ee-hl  { color: var(--white); font-weight: 700; }
+    .ee-link {
+      color: var(--green);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .ee-link:hover { color: var(--white); }
+    #easterEggCursor {
+      display: inline-block;
+      width: 8px; height: 1em;
+      background: var(--green);
+      vertical-align: text-bottom;
+      animation: cur-blink 1s step-end infinite;
+    }
+    @keyframes cur-blink { 50% { opacity: 0; } }
+
     /* ─── IMPRESSUM MODAL ─── */
     .modal-overlay {
       display: none;
@@ -1683,6 +1757,17 @@
   </div>
 </div>
 
+<!-- EASTER EGG: SECRET TERMINAL -->
+<div id="easterEgg" role="dialog" aria-label="Secret Terminal">
+  <button id="easterEggClose" aria-label="Schließen">ESC ✕</button>
+  <div id="easterEggTerminal">
+    <div class="ee-bar">
+      <div class="ee-dot"></div><div class="ee-dot"></div><div class="ee-dot"></div>
+    </div>
+    <div id="easterEggOutput"></div><span id="easterEggCursor"></span>
+  </div>
+</div>
+
 <!-- IMPRESSUM MODAL -->
 <div class="modal-overlay" id="impressumModal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal-box">
@@ -2170,6 +2255,85 @@
     const browser = (navigator.language || navigator.userLanguage || 'de').toLowerCase();
     setLang(browser.startsWith('de') ? 'de' : 'en');
   })();
+
+  // ── EASTER EGG ──────────────────────────────────────────────
+  // Konami Code: ↑↑↓↓←→←→BA → Secret Terminal
+  const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let konamiIdx = 0;
+  document.addEventListener('keydown', e => {
+    konamiIdx = (e.key === KONAMI[konamiIdx]) ? konamiIdx + 1 : (e.key === KONAMI[0] ? 1 : 0);
+    if (konamiIdx === KONAMI.length) { konamiIdx = 0; launchEasterEgg(); }
+  });
+
+  const EE_LINES = [
+    { text: 'ssh jeamr.com --secret', type: 'cmd' },
+    { text: 'Zugang gewährt. Willkommen, Neugieriger.', type: 'out' },
+    { text: '', type: 'blank' },
+    { text: 'whoami', type: 'cmd' },
+    { text: 'jean-yves-meyer', type: 'hl' },
+    { text: 'IT Product Manager · Bayern, Deutschland · UTC+1', type: 'out' },
+    { text: '', type: 'blank' },
+    { text: 'cat .fun_facts', type: 'cmd' },
+    { text: '→ Kaffee: mission critical', type: 'out' },
+    { text: '→ Meetings ohne Agenda: declined', type: 'out' },
+    { text: '→ Excel war der erste Product Manager', type: 'out' },
+    { text: '→ Sprint 05 wartet auf dich', type: 'out' },
+    { text: '', type: 'blank' },
+    { text: './hire_me.sh', type: 'cmd' },
+    { text: 'Initialisiere... ██████████ 100%', type: 'out' },
+    { text: '→ scroll to #contact', type: 'link' },
+  ];
+
+  function launchEasterEgg() {
+    const el = document.getElementById('easterEgg');
+    const output = document.getElementById('easterEggOutput');
+    output.innerHTML = '';
+    el.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    let i = 0;
+    function nextLine() {
+      if (i >= EE_LINES.length) return;
+      const { text, type } = EE_LINES[i++];
+      const span = document.createElement('span');
+      span.className = 'ee-line ee-' + type;
+      if (type === 'blank') { span.innerHTML = ' '; output.appendChild(span); setTimeout(nextLine, 120); return; }
+      if (type === 'link') {
+        span.innerHTML = text;
+        span.addEventListener('click', () => {
+          closeEasterEgg();
+          const t = document.getElementById('contact');
+          if (t) window.scrollTo({ top: t.offsetTop + 64, behavior: 'smooth' });
+        });
+        output.appendChild(span);
+        return;
+      }
+      output.appendChild(span);
+      let c = 0;
+      const speed = type === 'cmd' ? 38 : 18;
+      const cursor = document.getElementById('easterEggCursor');
+      function typeChar() {
+        span.textContent = text.slice(0, ++c);
+        cursor.scrollIntoView({ block: 'nearest' });
+        if (c < text.length) setTimeout(typeChar, speed);
+        else setTimeout(nextLine, type === 'cmd' ? 420 : 80);
+      }
+      typeChar();
+    }
+    nextLine();
+  }
+
+  function closeEasterEgg() {
+    document.getElementById('easterEgg').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('easterEggClose').addEventListener('click', closeEasterEgg);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEasterEgg(); });
+
+  // Console Art — für Developer die DevTools öffnen
+  console.log('%c\n     ██╗██╗   ██╗\n     ██║╚██╗ ██╔╝\n     ██║ ╚████╔╝ \n ██  ██║  ╚██╔╝  \n ╚█████║   ██║   \n  ╚════╝   ╚═╝   \n', 'color:#0E6CCF;font-family:monospace;line-height:1.4');
+  console.log('%cjeamr.com — Jean-Yves Meyer', 'color:#0E6CCF;font-weight:700;font-size:14px');
+  console.log('%cIT Product Manager · Bayern', 'color:#9BA09A;font-size:12px');
+  console.log('%cDu schaust in den Quellcode? Respekt.\nFragen oder Feedback: jean-yves.meyer@gmx.de', 'color:#F2F3F0;font-size:12px;margin-top:4px');
 
   function loadPost(cardId, iframeSrc) {
     if (window.innerWidth < 768) {
