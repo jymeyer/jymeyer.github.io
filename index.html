@@ -1068,7 +1068,7 @@
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1000px) {
       .sprint-next-card { display: none; }
-      .sprint-card { opacity: 0; transform: translateY(40px); transition: opacity 0.5s ease, transform 0.5s ease; }
+      .sprint-card { opacity: 0; transform: translateY(40px); transition: opacity 0.5s ease, transform 0.5s ease; flex: 0 0 calc(100vw - 3.2rem); }
       .sprint-card.visible { opacity: 1; transform: translateY(0); }
       .wrap { padding: 0 1.6rem; }
       .nav { padding: 1rem 1.4rem; }
@@ -1174,7 +1174,10 @@
     <div class="sec-label">01 // About</div>
     <div class="about-grid">
       <div class="about-photo">
-        <img src="foto.jpg" alt="Jean-Yves Meyer"/>
+        <picture>
+          <source srcset="foto.webp" type="image/webp"/>
+          <img src="foto.jpg" alt="Jean-Yves Meyer"/>
+        </picture>
         <div class="about-photo-caption">
           <div class="photo-tag">Product_Manager</div>
           <div class="photo-name">Jean-Yves Meyer</div>
