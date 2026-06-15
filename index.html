@@ -390,6 +390,22 @@
     }
     .sprint-grid-wrap {
       overflow: hidden;
+      position: relative;
+    }
+    .sprint-grid-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 140px;
+      height: 100%;
+      background: linear-gradient(to right, transparent, var(--bg) 85%);
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity 0.3s;
+    }
+    .sprint-grid-wrap.scrolled-end::after {
+      opacity: 0;
     }
     .sprint-grid {
       display: flex;
@@ -1750,6 +1766,14 @@
     });
   }, { threshold: 0.2 });
   sprintObserver.observe(document.querySelector('.sprint-grid'));
+
+  // Hide gradient when scrolled to end
+  const sprintGridEl = document.querySelector('.sprint-grid');
+  const sprintWrap = document.querySelector('.sprint-grid-wrap');
+  sprintGridEl.addEventListener('scroll', () => {
+    const atEnd = sprintGridEl.scrollLeft + sprintGridEl.clientWidth >= sprintGridEl.scrollWidth - 8;
+    sprintWrap.classList.toggle('scrolled-end', atEnd);
+  }, { passive: true });
 
   // DNA cards — slide in from bottom
   const dnaCards = document.querySelectorAll('.dna-card');
