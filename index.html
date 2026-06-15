@@ -112,6 +112,11 @@
       transition: border-color 0.2s, color 0.2s;
     }
     .lang-toggle:hover { border-color: var(--green); color: var(--green); }
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
     .state-dot {
       width: 7px; height: 7px;
       border-radius: 50%;
@@ -404,9 +409,27 @@
       z-index: 1;
       transition: opacity 0.3s;
     }
-    .sprint-grid-wrap.scrolled-end::after {
-      opacity: 0;
+    .sprint-grid-wrap.scrolled-end::after { opacity: 0; }
+    .sprint-scroll-arrow {
+      display: none;
+      position: absolute;
+      right: 0.6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--green);
+      font-size: 1.2rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s, border-color 0.2s;
     }
+    .sprint-scroll-arrow:hover { border-color: var(--green); }
+    .sprint-grid-wrap.scrolled-end .sprint-scroll-arrow { opacity: 0; pointer-events: none; }
     .sprint-grid {
       display: flex;
       flex-direction: row;
@@ -483,6 +506,8 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--dim);
+      word-break: break-word;
+      hyphens: auto;
       margin-top: 0.35rem;
       line-height: 1.5;
     }
@@ -991,6 +1016,8 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1000px) {
+      .sprint-grid-wrap::after { display: none; }
+      .sprint-scroll-arrow { display: flex; }
       .sprint-card { opacity: 0; transform: translateY(40px); transition: opacity 0.5s ease, transform 0.5s ease; }
       .sprint-card.visible { opacity: 1; transform: translateY(0); }
       .wrap { padding: 0 1.6rem; }
@@ -1038,10 +1065,12 @@
     <li><a href="#insights">Insights</a></li>
     <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
   </ul>
-  <div class="nav-state" id="navState">
-    <span id="stateText">◐ THEME: DARK</span>
+  <div class="nav-controls">
+    <div class="nav-state" id="navState">
+      <span id="stateText">◐ THEME: DARK</span>
+    </div>
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
   </div>
-  <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
 </nav>
 
 <!-- SCROLL RAIL -->
@@ -1234,6 +1263,7 @@
         <div class="sprint-next-label">Next<br/>Sprint</div>
       </div>
     </div>
+    <button class="sprint-scroll-arrow" id="sprintArrow" aria-label="Scroll right">›</button>
     </div>
 
     <div class="cert-row">
@@ -1767,13 +1797,16 @@
   }, { threshold: 0.2 });
   sprintObserver.observe(document.querySelector('.sprint-grid'));
 
-  // Hide gradient when scrolled to end
+  // Hide gradient / arrow when scrolled to end
   const sprintGridEl = document.querySelector('.sprint-grid');
   const sprintWrap = document.querySelector('.sprint-grid-wrap');
   sprintGridEl.addEventListener('scroll', () => {
     const atEnd = sprintGridEl.scrollLeft + sprintGridEl.clientWidth >= sprintGridEl.scrollWidth - 8;
     sprintWrap.classList.toggle('scrolled-end', atEnd);
   }, { passive: true });
+  document.getElementById('sprintArrow').addEventListener('click', () => {
+    sprintGridEl.scrollBy({ left: 360, behavior: 'smooth' });
+  });
 
   // DNA cards — slide in from bottom
   const dnaCards = document.querySelectorAll('.dna-card');
@@ -1816,10 +1849,29 @@
     scrollHint.classList.toggle('hidden', window.scrollY > 40);
   }, { passive: true });
 
-  // System state toggle
-  document.getElementById('navState').addEventListener('click', function() {
-    const isLight = document.body.classList.toggle('high-alert');
+  // Theme: apply light/dark and update button label
+  function applyTheme(isLight) {
+    document.body.classList.toggle('high-alert', isLight);
     document.getElementById('stateText').textContent = isLight ? '◑ THEME: LIGHT' : '◐ THEME: DARK';
+  }
+  // On load: localStorage wins, else follow system preference
+  (function() {
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      applyTheme(saved === 'light');
+    } else {
+      applyTheme(window.matchMedia('(prefers-color-scheme: light)').matches);
+    }
+  })();
+  // System preference change: only follow if user hasn't manually picked
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) applyTheme(e.matches);
+  });
+  // Manual toggle: save choice to localStorage
+  document.getElementById('navState').addEventListener('click', function() {
+    const isLight = !document.body.classList.contains('high-alert');
+    applyTheme(isLight);
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
   });
 
   // Stat counter animation
