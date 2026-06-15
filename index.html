@@ -1804,6 +1804,11 @@
   });
 
   function loadPost(cardId, iframeSrc) {
+    if (window.innerWidth < 768) {
+      const postUrl = iframeSrc.replace('/embed/feed/update/', '/feed/update/');
+      window.open(postUrl, '_blank', 'noopener');
+      return;
+    }
     const card = document.getElementById(cardId);
     const placeholder = card.querySelector('.insight-placeholder');
     const iframe = card.querySelector('.insight-iframe');
