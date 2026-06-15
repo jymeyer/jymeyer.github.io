@@ -403,7 +403,7 @@
       bottom: 1.6rem;
       z-index: 2;
       background: var(--card);
-      border: 1px solid var(--line);
+      border: 2px solid var(--green-dim);
       color: var(--green);
       font-size: 1.6rem;
       width: 3.2rem;
@@ -411,14 +411,14 @@
       cursor: pointer;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.3s, border-color 0.2s;
+      transition: opacity 0.3s, border-color 0.2s, background 0.2s, color 0.2s;
     }
     @media (max-width: 1000px) {
       .sprint-scroll-arrow { font-size: 1.2rem; width: 2.4rem; height: 2.4rem; }
     }
     .sprint-arrow-left { left: 0.6rem; }
     .sprint-arrow-right { right: 0.6rem; }
-    .sprint-scroll-arrow:hover { border-color: var(--green); }
+    .sprint-scroll-arrow:hover { border-color: var(--green); background: var(--green); color: var(--bg); }
     .sprint-grid-wrap.scrolled-end .sprint-arrow-right { opacity: 0; pointer-events: none; }
     .sprint-grid-wrap.at-start .sprint-arrow-left { opacity: 0; pointer-events: none; }
     .sprint-grid {
