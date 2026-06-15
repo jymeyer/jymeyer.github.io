@@ -397,25 +397,10 @@
       overflow: hidden;
       position: relative;
     }
-    .sprint-grid-wrap::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 140px;
-      height: 100%;
-      background: linear-gradient(to right, transparent, var(--bg) 85%);
-      pointer-events: none;
-      z-index: 1;
-      transition: opacity 0.3s;
-    }
-    .sprint-grid-wrap.scrolled-end::after { opacity: 0; }
     .sprint-scroll-arrow {
-      display: none;
+      display: flex;
       position: absolute;
-      right: 0.6rem;
-      top: 50%;
-      transform: translateY(-50%);
+      bottom: 1.6rem;
       z-index: 2;
       background: var(--card);
       border: 1px solid var(--line);
@@ -428,8 +413,11 @@
       justify-content: center;
       transition: opacity 0.3s, border-color 0.2s;
     }
+    .sprint-arrow-left { left: 0.6rem; }
+    .sprint-arrow-right { right: 0.6rem; }
     .sprint-scroll-arrow:hover { border-color: var(--green); }
-    .sprint-grid-wrap.scrolled-end .sprint-scroll-arrow { opacity: 0; pointer-events: none; }
+    .sprint-grid-wrap.scrolled-end .sprint-arrow-right { opacity: 0; pointer-events: none; }
+    .sprint-grid-wrap.at-start .sprint-arrow-left { opacity: 0; pointer-events: none; }
     .sprint-grid {
       display: flex;
       flex-direction: row;
@@ -1016,8 +1004,6 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1000px) {
-      .sprint-grid-wrap::after { display: none; }
-      .sprint-scroll-arrow { display: flex; }
       .sprint-card { opacity: 0; transform: translateY(40px); transition: opacity 0.5s ease, transform 0.5s ease; }
       .sprint-card.visible { opacity: 1; transform: translateY(0); }
       .wrap { padding: 0 1.6rem; }
@@ -1263,7 +1249,8 @@
         <div class="sprint-next-label">Next<br/>Sprint</div>
       </div>
     </div>
-    <button class="sprint-scroll-arrow" id="sprintArrow" aria-label="Scroll right">›</button>
+    <button class="sprint-scroll-arrow sprint-arrow-left" id="sprintArrowLeft" aria-label="Scroll left">‹</button>
+    <button class="sprint-scroll-arrow sprint-arrow-right" id="sprintArrowRight" aria-label="Scroll right">›</button>
     </div>
 
     <div class="cert-row">
@@ -1797,14 +1784,21 @@
   }, { threshold: 0.2 });
   sprintObserver.observe(document.querySelector('.sprint-grid'));
 
-  // Hide gradient / arrow when scrolled to end
+  // Sprint scroll arrows
   const sprintGridEl = document.querySelector('.sprint-grid');
   const sprintWrap = document.querySelector('.sprint-grid-wrap');
-  sprintGridEl.addEventListener('scroll', () => {
+  function updateArrows() {
     const atEnd = sprintGridEl.scrollLeft + sprintGridEl.clientWidth >= sprintGridEl.scrollWidth - 8;
+    const atStart = sprintGridEl.scrollLeft <= 8;
     sprintWrap.classList.toggle('scrolled-end', atEnd);
-  }, { passive: true });
-  document.getElementById('sprintArrow').addEventListener('click', () => {
+    sprintWrap.classList.toggle('at-start', atStart);
+  }
+  sprintGridEl.addEventListener('scroll', updateArrows, { passive: true });
+  updateArrows();
+  document.getElementById('sprintArrowLeft').addEventListener('click', () => {
+    sprintGridEl.scrollBy({ left: -360, behavior: 'smooth' });
+  });
+  document.getElementById('sprintArrowRight').addEventListener('click', () => {
     sprintGridEl.scrollBy({ left: 360, behavior: 'smooth' });
   });
 
