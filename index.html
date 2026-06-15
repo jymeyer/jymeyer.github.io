@@ -2374,8 +2374,13 @@
 
   const CELL = 30, COLS = 20, ROWS = 20;
   let snake, snakeDir, snakeNextDir, snakeFood, snakeScore, snakeOver, snakeInterval;
+  const JY_REKORD = 42;
   let snakeHighScore = parseInt(localStorage.getItem('snakeHigh') || '0');
-  document.getElementById('snakeBest').textContent = snakeHighScore;
+  let snakeJYBeaten = localStorage.getItem('snakeJYBeaten') === 'true';
+  function snakeBestLabel() {
+    return snakeHighScore > 0 ? snakeHighScore : JY_REKORD + ' (JY)';
+  }
+  document.getElementById('snakeBest').textContent = snakeBestLabel();
 
   function launchSnake() {
     document.getElementById('snakeGame').classList.add('open');
@@ -2447,11 +2452,17 @@
     });
   }
   function drawGameOver() {
+    const prevBest = snakeHighScore || JY_REKORD;
     const isNewBest = snakeScore > snakeHighScore;
+    const beatsJY = !snakeJYBeaten && snakeScore > JY_REKORD;
     if (isNewBest) {
       snakeHighScore = snakeScore;
       localStorage.setItem('snakeHigh', snakeHighScore);
       document.getElementById('snakeBest').textContent = snakeHighScore;
+    }
+    if (beatsJY) {
+      snakeJYBeaten = true;
+      localStorage.setItem('snakeJYBeaten', 'true');
     }
     const cv = document.getElementById('snakeCanvas');
     const ctx = cv.getContext('2d');
@@ -2464,12 +2475,15 @@
     ctx.fillStyle = '#F2F3F0';
     ctx.font = '11px "JetBrains Mono",monospace';
     ctx.fillText('SCORE: ' + snakeScore, cv.width/2, cv.height/2 - 8);
-    if (isNewBest && snakeScore > 0) {
+    if (beatsJY) {
+      ctx.fillStyle = '#0E6CCF';
+      ctx.fillText("✦ JY'S REKORD GEBROCHEN ✦", cv.width/2, cv.height/2 + 12);
+    } else if (isNewBest && snakeScore > 0) {
       ctx.fillStyle = '#0E6CCF';
       ctx.fillText('✦ NEUER REKORD ✦', cv.width/2, cv.height/2 + 12);
     } else {
       ctx.fillStyle = '#5C625C';
-      ctx.fillText('BEST: ' + snakeHighScore, cv.width/2, cv.height/2 + 12);
+      ctx.fillText('BEST: ' + prevBest + (snakeHighScore === 0 ? ' (JY)' : ''), cv.width/2, cv.height/2 + 12);
     }
     ctx.fillStyle = '#5C625C';
     ctx.fillText('[ ENTER ] neu starten', cv.width/2, cv.height/2 + 34);
