@@ -1766,19 +1766,19 @@
 
   // Section labels slide up
   const secLabelObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting));
   }, { threshold: 0.8 });
   document.querySelectorAll('.sec-label').forEach(el => secLabelObs.observe(el));
 
-  // Sprint cards slide-in from right
+  // Sprint cards slide-in
   const sprintCards = document.querySelectorAll('.sprint-card');
   const sprintObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      sprintCards.forEach((card, i) => {
-        setTimeout(() => card.classList.add('visible'), i * 120);
-      });
-      sprintObserver.disconnect();
+      if (entry.isIntersecting) {
+        sprintCards.forEach((card, i) => setTimeout(() => card.classList.add('visible'), i * 120));
+      } else {
+        sprintCards.forEach(card => card.classList.remove('visible'));
+      }
     });
   }, { threshold: 0.2 });
   sprintObserver.observe(document.querySelector('.sprint-grid'));
@@ -1805,11 +1805,11 @@
   const dnaCards = document.querySelectorAll('.dna-card');
   const dnaObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      dnaCards.forEach((card, i) => {
-        setTimeout(() => card.classList.add('visible'), i * 100);
-      });
-      dnaObserver.disconnect();
+      if (entry.isIntersecting) {
+        dnaCards.forEach((card, i) => setTimeout(() => card.classList.add('visible'), i * 100));
+      } else {
+        dnaCards.forEach(card => card.classList.remove('visible'));
+      }
     });
   }, { threshold: 0.15 });
   dnaObserver.observe(document.querySelector('.dna-grid'));
@@ -1818,11 +1818,11 @@
   const insightCards = document.querySelectorAll('.insight-card');
   const insightObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      insightCards.forEach((card, i) => {
-        setTimeout(() => card.classList.add('visible'), i * 100);
-      });
-      insightObserver.disconnect();
+      if (entry.isIntersecting) {
+        insightCards.forEach((card, i) => setTimeout(() => card.classList.add('visible'), i * 100));
+      } else {
+        insightCards.forEach(card => card.classList.remove('visible'));
+      }
     });
   }, { threshold: 0.15 });
   insightObserver.observe(document.querySelector('.insights-grid'));
@@ -1879,21 +1879,23 @@
   });
   const statsObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      statVals.forEach(el => {
-        const target = parseInt(el.dataset.target);
-        const suffix = el.dataset.suffix;
-        const duration = 1800;
-        const start = performance.now();
-        function tick(now) {
-          const t = Math.min((now - start) / duration, 1);
-          const ease = 1 - Math.pow(1 - t, 3);
-          el.textContent = Math.round(ease * target) + suffix;
-          if (t < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      });
-      statsObserver.disconnect();
+      if (entry.isIntersecting) {
+        statVals.forEach(el => {
+          const target = parseInt(el.dataset.target);
+          const suffix = el.dataset.suffix;
+          const duration = 1800;
+          const start = performance.now();
+          function tick(now) {
+            const t = Math.min((now - start) / duration, 1);
+            const ease = 1 - Math.pow(1 - t, 3);
+            el.textContent = Math.round(ease * target) + suffix;
+            if (t < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        });
+      } else {
+        statVals.forEach(el => { el.textContent = '0' + el.dataset.suffix; });
+      }
     });
   }, { threshold: 0.5 });
   statsObserver.observe(document.querySelector('.stats-row'));
