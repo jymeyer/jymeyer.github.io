@@ -754,27 +754,27 @@
     .insight-badge--pulse {
       animation: badge-pulse 2.2s ease-in-out infinite;
     }
-    .insight-scroll-arrow {
+    .insights-nav {
       display: none;
-      position: absolute;
-      bottom: 1.6rem;
-      z-index: 2;
+      justify-content: space-between;
+      margin-top: 1.2rem;
+    }
+    .insight-scroll-arrow {
+      display: flex;
       background: var(--card);
       border: 2px solid var(--green-dim);
       color: var(--green);
-      font-size: 1.6rem;
-      width: 3.2rem;
-      height: 3.2rem;
+      font-size: 1.4rem;
+      width: 3rem;
+      height: 3rem;
       cursor: pointer;
       align-items: center;
       justify-content: center;
       transition: opacity 0.3s, border-color 0.2s, background 0.2s, color 0.2s;
     }
-    .insight-arrow-left { left: 0.6rem; }
-    .insight-arrow-right { right: 0.6rem; }
     .insight-scroll-arrow:hover { border-color: var(--green); background: var(--green); color: var(--bg); }
-    .insights-grid-wrap.scrolled-end .insight-arrow-right { opacity: 0; pointer-events: none; }
-    .insights-grid-wrap.at-start .insight-arrow-left { opacity: 0; pointer-events: none; }
+    .insights-grid-wrap.scrolled-end + .insights-nav .insight-arrow-right { opacity: 0; pointer-events: none; }
+    .insights-grid-wrap.at-start + .insights-nav .insight-arrow-left { opacity: 0; pointer-events: none; }
     .insight-placeholder {
       padding: 2.2rem 2.4rem;
       display: flex;
@@ -1287,11 +1287,11 @@
       section { padding: 6rem 0 3rem; }
       .hero-cta { min-width: 100%; }
       .insights-grid-wrap { overflow: hidden; position: relative; }
-      .insights-grid { display: flex; flex-direction: row; gap: 1.4rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 1rem; }
+      .insights-grid { display: flex; flex-direction: row; gap: 1.4rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
       .insights-grid::-webkit-scrollbar { display: none; }
       .insights-grid { scrollbar-width: none; }
-      .insight-card { flex: 0 0 calc(100vw - 3.2rem); scroll-snap-align: start; }
-      .insight-scroll-arrow { display: flex; }
+      .insight-card { flex: 0 0 calc(100% - 1.4rem); scroll-snap-align: start; }
+      .insights-nav { display: flex; }
     }
     @media (max-height: 820px) and (min-width: 1001px) {
       #hero { padding-top: 4.5rem; justify-content: flex-start; padding-bottom: 5rem; }
@@ -1839,8 +1839,10 @@
       </div>
 
     </div>
-    <button class="insight-scroll-arrow insight-arrow-left" id="insightArrowLeft" aria-label="Vorheriger Post">‹</button>
-    <button class="insight-scroll-arrow insight-arrow-right" id="insightArrowRight" aria-label="Nächster Post">›</button>
+    </div>
+    <div class="insights-nav">
+      <button class="insight-scroll-arrow" id="insightArrowLeft" aria-label="Vorheriger Post">‹</button>
+      <button class="insight-scroll-arrow" id="insightArrowRight" aria-label="Nächster Post">›</button>
     </div>
   </section>
 
