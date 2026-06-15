@@ -1030,16 +1030,16 @@
     #snakeScoreLabel { color: var(--green); }
     #snakeClose {
       background: none;
-      border: 1px solid var(--line);
-      color: var(--dim);
+      border: 1px solid var(--green-dim);
+      color: var(--green);
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
       letter-spacing: 0.12em;
       padding: 0.3rem 0.6rem;
       cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
     }
-    #snakeClose:hover { border-color: var(--green); color: var(--green); }
+    #snakeClose:hover { background: var(--green); color: var(--bg); border-color: var(--green); }
     #snakeCanvas {
       display: block;
       border: 1px solid var(--line);
