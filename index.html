@@ -1841,7 +1841,7 @@
 <div id="snakeGame" role="dialog" aria-label="Snake">
   <div id="snakeHeader">
     <span>// SNAKE.exe</span>
-    <span id="snakeScoreLabel">SCORE: <span id="snakeScore">0</span></span>
+    <span id="snakeScoreLabel">SCORE: <span id="snakeScore">0</span> &nbsp;·&nbsp; BEST: <span id="snakeBest">0</span></span>
     <button id="snakeClose" aria-label="Schließen">ESC ✕</button>
   </div>
   <canvas id="snakeCanvas" width="600" height="600"></canvas>
@@ -2374,6 +2374,8 @@
 
   const CELL = 30, COLS = 20, ROWS = 20;
   let snake, snakeDir, snakeNextDir, snakeFood, snakeScore, snakeOver, snakeInterval;
+  let snakeHighScore = parseInt(localStorage.getItem('snakeHigh') || '0');
+  document.getElementById('snakeBest').textContent = snakeHighScore;
 
   function launchSnake() {
     document.getElementById('snakeGame').classList.add('open');
@@ -2445,6 +2447,12 @@
     });
   }
   function drawGameOver() {
+    const isNewBest = snakeScore > snakeHighScore;
+    if (isNewBest) {
+      snakeHighScore = snakeScore;
+      localStorage.setItem('snakeHigh', snakeHighScore);
+      document.getElementById('snakeBest').textContent = snakeHighScore;
+    }
     const cv = document.getElementById('snakeCanvas');
     const ctx = cv.getContext('2d');
     ctx.fillStyle = 'rgba(0,0,0,0.75)';
@@ -2452,12 +2460,19 @@
     ctx.textAlign = 'center';
     ctx.fillStyle = '#0E6CCF';
     ctx.font = 'bold 15px "JetBrains Mono",monospace';
-    ctx.fillText('// GAME OVER', cv.width/2, cv.height/2 - 22);
+    ctx.fillText('// GAME OVER', cv.width/2, cv.height/2 - 34);
     ctx.fillStyle = '#F2F3F0';
     ctx.font = '11px "JetBrains Mono",monospace';
-    ctx.fillText('SCORE: ' + snakeScore, cv.width/2, cv.height/2 + 2);
+    ctx.fillText('SCORE: ' + snakeScore, cv.width/2, cv.height/2 - 8);
+    if (isNewBest && snakeScore > 0) {
+      ctx.fillStyle = '#0E6CCF';
+      ctx.fillText('✦ NEUER REKORD ✦', cv.width/2, cv.height/2 + 12);
+    } else {
+      ctx.fillStyle = '#5C625C';
+      ctx.fillText('BEST: ' + snakeHighScore, cv.width/2, cv.height/2 + 12);
+    }
     ctx.fillStyle = '#5C625C';
-    ctx.fillText('[ ENTER ] neu starten', cv.width/2, cv.height/2 + 24);
+    ctx.fillText('[ ENTER ] neu starten', cv.width/2, cv.height/2 + 34);
   }
 
   // Tastatur
