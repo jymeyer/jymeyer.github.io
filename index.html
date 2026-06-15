@@ -1020,7 +1020,7 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      max-width: 400px;
+      max-width: 600px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
       letter-spacing: 0.16em;
@@ -1844,7 +1844,7 @@
     <span id="snakeScoreLabel">SCORE: <span id="snakeScore">0</span></span>
     <button id="snakeClose" aria-label="Schließen">ESC ✕</button>
   </div>
-  <canvas id="snakeCanvas" width="400" height="400"></canvas>
+  <canvas id="snakeCanvas" width="600" height="600"></canvas>
   <div id="snakeDpad">
     <button class="dpad-btn" id="dpadUp">↑</button>
     <div class="dpad-row">
@@ -2367,7 +2367,7 @@
     logoTimer = setTimeout(() => { logoClicks = 0; }, 1800);
   });
 
-  const CELL = 20, COLS = 20, ROWS = 20;
+  const CELL = 30, COLS = 20, ROWS = 20;
   let snake, snakeDir, snakeNextDir, snakeFood, snakeScore, snakeOver, snakeInterval;
 
   function launchSnake() {
