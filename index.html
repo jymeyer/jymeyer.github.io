@@ -2407,8 +2407,11 @@
   function tickSnake() {
     if (snakeOver) return;
     snakeDir = snakeNextDir;
-    const head = {x:snake[0].x+snakeDir.x, y:snake[0].y+snakeDir.y};
-    if (head.x<0||head.x>=COLS||head.y<0||head.y>=ROWS||snake.some(s=>s.x===head.x&&s.y===head.y)) {
+    const head = {
+      x: (snake[0].x + snakeDir.x + COLS) % COLS,
+      y: (snake[0].y + snakeDir.y + ROWS) % ROWS
+    };
+    if (snake.some(s=>s.x===head.x&&s.y===head.y)) {
       snakeOver = true; clearInterval(snakeInterval); drawSnake(); drawGameOver(); return;
     }
     snake.unshift(head);
