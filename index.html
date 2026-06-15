@@ -2452,9 +2452,10 @@
     });
   }
   function drawGameOver() {
-    const prevBest = snakeHighScore || JY_REKORD;
-    const isNewBest = snakeScore > snakeHighScore;
+    const effectiveBest = snakeJYBeaten ? snakeHighScore : Math.max(snakeHighScore, JY_REKORD);
+    const isNewBest = snakeScore > effectiveBest;
     const beatsJY = !snakeJYBeaten && snakeScore > JY_REKORD;
+    const prevBest = effectiveBest;
     if (isNewBest) {
       snakeHighScore = snakeScore;
       localStorage.setItem('snakeHigh', snakeHighScore);
