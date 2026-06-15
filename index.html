@@ -507,6 +507,7 @@
       color: var(--grey);
     }
 
+    /* ─── CERTIFICATIONS ─── */
     .cert-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -816,6 +817,7 @@
     .channel:hover { color: var(--green); padding-left: 0.6rem; }
     .channel-icon { color: var(--dim); width: 22px; height: 22px; flex-shrink: 0; }
 
+    /* ─── FOOTER ─── */
     footer {
       border-top: 1px solid var(--line);
       margin-top: 3rem;
@@ -869,7 +871,7 @@
       50% { transform: translateY(5px); }
     }
 
-    /* ─── SPRINT NEXT DOT ─── */
+    /* ─── SPRINT NEXT CARD (SPRINT_05) ─── */
     .sprint-next-dot {
       width: 28px;
       height: 28px;
@@ -1582,6 +1584,7 @@
       </div>
     </div>
 
+    <!-- FOOTER -->
     <footer>
       <div class="footer-inner">
         <span>© 2026 Jean-Yves Meyer</span>
@@ -1659,7 +1662,14 @@
 </div>
 
 <script>
-  // Scroll progress rail + percentage + section label
+  // ═══════════════════════════════════════════════════════════════
+  // jeamr.com — Portfolio JS
+  // Sections: Scroll Rail · Clock · Contact Form · Tracking ·
+  //           Navigation · Animations · Roadmap · Theme · Stats ·
+  //           Modals · Language (i18n)
+  // ═══════════════════════════════════════════════════════════════
+
+  // ── SCROLL RAIL + FORTSCHRITT ────────────────────────────────
   const railFill = document.getElementById('railFill');
   const railDot = document.getElementById('railDot');
   const scrollPct = document.getElementById('scrollPct');
@@ -1677,7 +1687,7 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Active section
+  // ── AKTIVE SEKTION (Nav-Highlight + Rail-Label) ──────────────
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1690,7 +1700,7 @@
   }, { threshold: 0.35 });
   sections.forEach(s => obs.observe(s));
 
-  // Clock
+  // ── UHRZEIT ──────────────────────────────────────────────────
   function tick() {
     const d = new Date();
     document.getElementById('clock').textContent =
@@ -1699,7 +1709,7 @@
   tick();
   setInterval(tick, 30000);
 
-  // Mail form → Web3Forms
+  // ── KONTAKTFORMULAR (Web3Forms API) ──────────────────────────
   document.getElementById('mailForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const form = this;
@@ -1756,7 +1766,7 @@
     btn.textContent = 'Send ↗';
   });
 
-  // Tracking Opt-out
+  // ── UMAMI TRACKING OPT-OUT ───────────────────────────────────
   function toggleTracking() {
     const disabled = localStorage.getItem('umami.disabled');
     if (disabled) {
@@ -1774,7 +1784,8 @@
   }
   updateTrackingBtn();
 
-  // Logo + Back to top scrollen nach oben ohne # in der URL
+  // ── NAVIGATION ───────────────────────────────────────────────
+  // Logo + Back to top: scroll ohne # in der URL
   ['navLogo', 'backToTop'].forEach(id => {
     document.getElementById(id).addEventListener('click', e => {
       e.preventDefault();
@@ -1783,7 +1794,7 @@
     });
   });
 
-  // Nav-Links: scroll mit Nav-Offset damit Inhalt sauber sichtbar ist
+  // Nav-Links: scroll mit Offset damit Inhalt unter der fixen Nav sauber sichtbar ist
   const NAV_OFFSET = 64;
   document.querySelectorAll('.nav-links a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {
@@ -1794,12 +1805,14 @@
     });
   });
 
+  // ── SCROLL-ANIMATIONEN (IntersectionObserver) ────────────────
   // Section labels slide up
   const secLabelObs = new IntersectionObserver(entries => {
     entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting));
   }, { threshold: 0.8 });
   document.querySelectorAll('.sec-label').forEach(el => secLabelObs.observe(el));
 
+  // ── ROADMAP (Sprint Cards + Scroll-Pfeile) ───────────────────
   // Sprint cards slide-in
   const sprintCards = document.querySelectorAll('.sprint-card');
   const sprintObserver = new IntersectionObserver(entries => {
@@ -1857,6 +1870,7 @@
   }, { threshold: 0.15 });
   insightObserver.observe(document.querySelector('.insights-grid'));
 
+  // ── PRODUCT DNA ACCORDION ────────────────────────────────────
   // DNA accordion — only one card open at a time
   document.querySelectorAll('.dna-card').forEach(card => {
     card.addEventListener('click', () => {
@@ -1866,13 +1880,14 @@
     });
   });
 
-  // Scroll hint — hide when scrolled, show when back at top
+  // ── SCROLL HINT (Pfeil beim Start) ───────────────────────────
   const scrollHint = document.getElementById('scrollHint');
   window.addEventListener('scroll', function() {
     scrollHint.classList.toggle('hidden', window.scrollY > 40);
   }, { passive: true });
 
-  // Theme: apply light/dark and update button label
+  // ── THEME (Light/Dark Mode) ───────────────────────────────────
+  // Reihenfolge: localStorage (manuell) → System-Präferenz (prefers-color-scheme)
   function applyTheme(isLight) {
     document.body.classList.toggle('high-alert', isLight);
     document.getElementById('stateText').textContent = isLight ? '◑ THEME: LIGHT' : '◐ THEME: DARK';
@@ -1897,7 +1912,7 @@
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
   });
 
-  // Stat counter animation
+  // ── STATISTIK-ZÄHLER (animiert beim Einscrollen) ─────────────
   const statVals = document.querySelectorAll('.stat-val');
   statVals.forEach(el => {
     const raw = el.textContent.trim();
@@ -1930,7 +1945,8 @@
   }, { threshold: 0.5 });
   statsObserver.observe(document.querySelector('.stats-row'));
 
-  // Close impressum modal on ESC
+  // ── MODALS (Impressum + Datenschutz) ─────────────────────────
+  // ESC-Taste schliesst alle offenen Modals
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       document.getElementById('impressumModal').classList.remove('open');
