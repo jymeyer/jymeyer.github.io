@@ -867,19 +867,9 @@
     }
 
     /* ─── SPRINT NEXT DOT ─── */
-    .sprint-next {
-      flex: 0 0 120px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 2rem 1rem;
-      scroll-snap-align: start;
-    }
     .sprint-next-dot {
-      width: 18px;
-      height: 18px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       border: 2px solid var(--green);
       background: transparent;
@@ -887,27 +877,49 @@
     }
     @keyframes pulse-ring {
       0%, 100% { box-shadow: 0 0 0 0 rgba(14,108,207,0.5); }
-      50% { box-shadow: 0 0 0 8px rgba(14,108,207,0); }
-    }
-    .sprint-next-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--dim);
-      text-align: center;
-      line-height: 1.6;
+      50% { box-shadow: 0 0 0 10px rgba(14,108,207,0); }
     }
     .sprint-next-card {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 1.4rem;
+      border: 1px dashed var(--green-dim) !important;
+      text-decoration: none;
     }
+    .sprint-next-card:hover { border-color: var(--green) !important; }
     .sprint-next-card .sprint-tag {
       position: absolute;
       top: 2rem;
       left: 2rem;
+      color: var(--green);
+    }
+    .sprint-next-title {
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      text-align: center;
+      line-height: 1.4;
+    }
+    .sprint-next-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: center;
+      line-height: 1.7;
+    }
+    .sprint-next-cta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-top: 0.4rem;
     }
 
     /* ─── SPRINT CARD SLIDE-IN ─── */
@@ -1166,11 +1178,13 @@
 
     <div class="sprint-grid-wrap">
     <div class="sprint-grid">
-      <div class="sprint-card sprint-next-card">
+      <a href="#contact" class="sprint-card sprint-next-card">
         <div class="sprint-tag">SPRINT_05</div>
         <div class="sprint-next-dot"></div>
-        <div class="sprint-next-label">Next<br/>Sprint</div>
-      </div>
+        <div class="sprint-next-title">Nächste<br/>Station</div>
+        <div class="sprint-next-sub">Offen für neue<br/>Herausforderungen</div>
+        <div class="sprint-next-cta">Let's talk ↗</div>
+      </a>
       <div class="sprint-card">
         <div class="sprint-tag">SPRINT_04</div>
         <div class="sprint-date" data-i18n="s1_date">2025 — Heute</div>
