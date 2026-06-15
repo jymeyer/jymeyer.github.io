@@ -1022,12 +1022,13 @@
       section { padding: 6rem 0 3rem; }
       .hero-cta { min-width: 100%; }
     }
-    @media (max-width: 560px) {
-      #hero { min-height: 100svh; padding-top: 4.5rem; justify-content: flex-start; padding-bottom: 1.5rem; }
+    @media (max-height: 820px) and (min-width: 1001px) {
+      #hero { padding-top: 4.5rem; justify-content: flex-start; padding-bottom: 2rem; }
       .avail { margin-bottom: 1rem; }
-      .hero-title { margin-bottom: 1.8rem; }
+      .hero-title { margin-bottom: 2rem; }
       .hero-bottom { gap: 1.5rem; }
-      .hero-spec p { font-size: 1.05rem; }
+    }
+    @media (max-width: 560px) {
       .mail-form { flex-direction: column; }
       .sprint-metrics { grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
       .metric-val { font-size: 1.1rem; }
