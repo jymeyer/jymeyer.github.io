@@ -1047,6 +1047,30 @@
       max-height: calc(100vw - 3rem);
       image-rendering: pixelated;
     }
+    #snakeDpad {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    @media (max-width: 1000px) { #snakeDpad { display: flex; } }
+    .dpad-row { display: flex; gap: 0.3rem; }
+    .dpad-btn {
+      width: 3.2rem;
+      height: 3.2rem;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--green);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .dpad-btn:active { background: var(--green); color: var(--bg); border-color: var(--green); }
     #snakeHint {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.62rem;
@@ -1054,6 +1078,7 @@
       color: var(--dim);
       text-align: center;
     }
+    @media (max-width: 1000px) { #snakeHint { display: none; } }
 
     /* ─── EASTER EGG: SECRET TERMINAL ─── */
     #easterEgg {
@@ -1820,6 +1845,14 @@
     <button id="snakeClose" aria-label="Schließen">ESC ✕</button>
   </div>
   <canvas id="snakeCanvas" width="400" height="400"></canvas>
+  <div id="snakeDpad">
+    <button class="dpad-btn" id="dpadUp">↑</button>
+    <div class="dpad-row">
+      <button class="dpad-btn" id="dpadLeft">←</button>
+      <button class="dpad-btn" id="dpadDown">↓</button>
+      <button class="dpad-btn" id="dpadRight">→</button>
+    </div>
+  </div>
   <div id="snakeHint">← → ↑ ↓ &nbsp;·&nbsp; ENTER = neu starten &nbsp;·&nbsp; ESC = beenden</div>
 </div>
 
@@ -2445,6 +2478,16 @@
   },{passive:true});
 
   document.getElementById('snakeClose').addEventListener('click', closeSnake);
+
+  // D-Pad Buttons
+  const dpadMoves = {dpadUp:{x:0,y:-1},dpadDown:{x:0,y:1},dpadLeft:{x:-1,y:0},dpadRight:{x:1,y:0}};
+  Object.entries(dpadMoves).forEach(([id, nd]) => {
+    document.getElementById(id).addEventListener('touchstart', e => {
+      e.preventDefault();
+      if (snakeOver) { initSnake(); return; }
+      if (!(nd.x===-snakeDir.x&&nd.y===-snakeDir.y)) snakeNextDir=nd;
+    }, {passive:false});
+  });
 
   // ── EASTER EGG ──────────────────────────────────────────────
   // Konami Code: ↑↑↓↓←→←→BA → Secret Terminal
