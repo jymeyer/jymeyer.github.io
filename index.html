@@ -99,6 +99,19 @@
       transition: border-color 0.2s;
     }
     .nav-state:hover { border-color: var(--green); }
+    .lang-toggle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      color: var(--dim);
+      border: 1px solid var(--line);
+      padding: 0.45rem 0.9rem;
+      background: var(--bg-soft);
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .lang-toggle:hover { border-color: var(--green); color: var(--green); }
     .state-dot {
       width: 7px; height: 7px;
       border-radius: 50%;
@@ -985,6 +998,7 @@
       .sprint-metrics { grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
       .metric-val { font-size: 1.1rem; }
       .nav-state { font-size: 0.6rem; padding: 0.4rem 0.7rem; }
+      .lang-toggle { font-size: 0.6rem; padding: 0.4rem 0.7rem; }
       .scroll-hint { display: none; }
       .cert-card {
         flex-wrap: wrap;
@@ -1006,8 +1020,9 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#dna">Product DNA</a></li>
     <li><a href="#insights">Insights</a></li>
-    <li><a href="#contact">Kontakt</a></li>
+    <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
   </ul>
+  <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
   <div class="nav-state" id="navState">
     <span id="stateText">◐ THEME: DARK</span>
   </div>
@@ -1030,9 +1045,9 @@
   <section id="hero">
     <div class="avail">
       <span class="state-dot"></span>
-      Bereit für neue Herausforderungen
+      <span data-i18n="hero_avail">Bereit für neue Herausforderungen</span>
     </div>
-    <h1 class="display hero-title">
+    <h1 class="display hero-title" data-i18n-html="hero_title">
       Produkte<br/>
       <span class="accent">strategisch</span><br/>
       skalieren
@@ -1040,10 +1055,10 @@
     <div class="hero-bottom">
       <div class="hero-spec">
         <div class="hero-spec-label">// Product Specification</div>
-        <p>IT Product Manager mit technischem Fundament — spezialisiert auf SaaS-Plattformen für den öffentlichen Sektor und die Versicherungsbranche. Ich verbinde Business-Strategie mit technischer Umsetzung und liefere messbare Ergebnisse.</p>
+        <p data-i18n="hero_desc">IT Product Manager mit technischem Fundament — spezialisiert auf SaaS-Plattformen für den öffentlichen Sektor und die Versicherungsbranche. Ich verbinde Business-Strategie mit technischer Umsetzung und liefere messbare Ergebnisse.</p>
       </div>
       <div class="hero-cta">
-        <a href="#roadmap" class="btn btn-green">Roadmap ansehen ↗</a>
+        <a href="#roadmap" class="btn btn-green" data-i18n="hero_cta">Roadmap ansehen ↗</a>
         <a href="#contact" class="btn btn-ghost">Start the next Sprint</a>
       </div>
     </div>
@@ -1066,15 +1081,15 @@
         </div>
       </div>
       <div>
-        <h2 class="about-h">Vom Code zur Produktstrategie</h2>
+        <h2 class="about-h" data-i18n="about_h">Vom Code zur Produktstrategie</h2>
         <div class="about-text">
-          <p>Ich verwalte nicht nur Backlogs — ich gestalte Wert. Mein Werdegang begann als Fachinformatiker für Anwendungsentwicklung im Code und führt heute in die volle Produktverantwortung für eine Enterprise-SaaS-Plattform.</p>
-          <p>Mein Ansatz ist systemisch: Jedes Feature ist eine Hypothese, jedes Release eine Lernchance, jede Metrik erzählt eine Geschichte über Nutzerverhalten. Ich übersetze komplexe Anforderungen — Compliance, viele Stakeholder, technische Constraints — in klare, priorisierte Roadmaps.</p>
+          <p data-i18n="about_p1">Ich verwalte nicht nur Backlogs — ich gestalte Wert. Mein Werdegang begann als Fachinformatiker für Anwendungsentwicklung im Code und führt heute in die volle Produktverantwortung für eine Enterprise-SaaS-Plattform.</p>
+          <p data-i18n="about_p2">Mein Ansatz ist systemisch: Jedes Feature ist eine Hypothese, jedes Release eine Lernchance, jede Metrik erzählt eine Geschichte über Nutzerverhalten. Ich übersetze komplexe Anforderungen — Compliance, viele Stakeholder, technische Constraints — in klare, priorisierte Roadmaps.</p>
         </div>
         <div class="stats-row">
           <div>
             <div class="stat-val">7+</div>
-            <div class="stat-label">Jahre in IT &amp; Produkt</div>
+            <div class="stat-label" data-i18n="stat_years">Jahre in IT &amp; Produkt</div>
           </div>
           <div>
             <div class="stat-val">6</div>
@@ -1082,11 +1097,11 @@
           </div>
           <div>
             <div class="stat-val">10+</div>
-            <div class="stat-label">Enterprise-Kunden</div>
+            <div class="stat-label" data-i18n="stat_clients">Enterprise-Kunden</div>
           </div>
           <div>
             <div class="stat-val">2</div>
-            <div class="stat-label">Branchen-Schwerpunkte</div>
+            <div class="stat-label" data-i18n="stat_sectors">Branchen-Schwerpunkte</div>
           </div>
         </div>
       </div>
@@ -1098,14 +1113,14 @@
     <div class="sec-label">02 // Career Roadmap</div>
     <div class="roadmap-head">
       <h2 class="display roadmap-title">The Integrated Roadmap</h2>
-      <p class="roadmap-sub">Jede Rolle ist ein erfolgreich ausgelieferter Sprint — messbare Ergebnisse, skalierte Systeme und validierte Produktentscheidungen.</p>
+      <p class="roadmap-sub" data-i18n="roadmap_sub">Jede Rolle ist ein erfolgreich ausgelieferter Sprint — messbare Ergebnisse, skalierte Systeme und validierte Produktentscheidungen.</p>
     </div>
 
     <div class="sprint-grid-wrap">
     <div class="sprint-grid">
       <div class="sprint-card">
         <div class="sprint-tag">SPRINT_01</div>
-        <div class="sprint-date">2025 — Heute</div>
+        <div class="sprint-date" data-i18n="s1_date">2025 — Heute</div>
         <div class="sprint-role">Product Manager</div>
         <div class="sprint-company">SYNCPILOT Group</div>
         <div class="sprint-industry">SaaS · Public Sector · Insurance</div>
@@ -1116,18 +1131,18 @@
           </div>
           <div>
             <div class="metric-val">10+</div>
-            <div class="metric-label">Enterprise-Kunden</div>
+            <div class="metric-label" data-i18n="ml_clients">Enterprise-Kunden</div>
           </div>
           <div>
             <div class="metric-val">7</div>
-            <div class="metric-label">Personen im Team</div>
+            <div class="metric-label" data-i18n="ml_team">Personen im Team</div>
           </div>
           <div>
             <div class="metric-val">200</div>
-            <div class="metric-label">Nutzer/Organisation</div>
+            <div class="metric-label" data-i18n="ml_users">Nutzer/Organisation</div>
           </div>
         </div>
-        <p class="sprint-desc">Vollständige Produktverantwortung für eine SaaS-Terminbuchungsplattform. Roadmap definiert und umgesetzt, monatliche Releases mit cross-funktionalem Team sichergestellt, Features nach Business Value, technischen Constraints und OKRs priorisiert. Verantwortlich für 2 Produkte, 2 Services und Keycloak als SSO-Plattform.</p>
+        <p class="sprint-desc" data-i18n="s1_desc">Vollständige Produktverantwortung für eine SaaS-Terminbuchungsplattform. Roadmap definiert und umgesetzt, monatliche Releases mit cross-funktionalem Team sichergestellt, Features nach Business Value, technischen Constraints und OKRs priorisiert. Verantwortlich für 2 Produkte, 2 Services und Keycloak als SSO-Plattform.</p>
       </div>
 
       <div class="sprint-card">
@@ -1135,22 +1150,22 @@
         <div class="sprint-date">2023 — 2025</div>
         <div class="sprint-role">Junior Product Manager</div>
         <div class="sprint-company">SYNCPILOT Group</div>
-        <div class="sprint-industry">SaaS · Agile Produktentwicklung</div>
+        <div class="sprint-industry" data-i18n="s2_industry">SaaS · Agile Produktentwicklung</div>
         <div class="sprint-metrics">
           <div>
             <div class="metric-val">2w</div>
-            <div class="metric-label">Sprint-Zyklus</div>
+            <div class="metric-label" data-i18n="ml_cycle">Sprint-Zyklus</div>
           </div>
           <div>
             <div class="metric-val">100%</div>
-            <div class="metric-label">Sprint-Beteiligung</div>
+            <div class="metric-label" data-i18n="ml_participation">Sprint-Beteiligung</div>
           </div>
           <div>
             <div class="metric-val">PSPO</div>
-            <div class="metric-label">Zertifiziert 2024</div>
+            <div class="metric-label" data-i18n="ml_certified">Zertifiziert 2024</div>
           </div>
         </div>
-        <p class="sprint-desc">Aktive Mitgestaltung der Produktentwicklung im agilen Umfeld. Eigenständige Anforderungserhebung, Verfeinerung von User Stories sowie eigenverantwortliche Mitgestaltung von Sprint-Planung und Roadmap-Diskussionen.</p>
+        <p class="sprint-desc" data-i18n="s2_desc">Aktive Mitgestaltung der Produktentwicklung im agilen Umfeld. Eigenständige Anforderungserhebung, Verfeinerung von User Stories sowie eigenverantwortliche Mitgestaltung von Sprint-Planung und Roadmap-Diskussionen.</p>
       </div>
 
       <div class="sprint-card">
@@ -1162,7 +1177,7 @@
         <div class="sprint-metrics">
           <div>
             <div class="metric-val">4+</div>
-            <div class="metric-label">Jahre Betrieb</div>
+            <div class="metric-label" data-i18n="ml_yrs_ops">Jahre Betrieb</div>
           </div>
           <div>
             <div class="metric-val">AD</div>
@@ -1170,33 +1185,33 @@
           </div>
           <div>
             <div class="metric-val">SQL</div>
-            <div class="metric-label">Scripting &amp; Daten</div>
+            <div class="metric-label" data-i18n="ml_scripting">Scripting &amp; Daten</div>
           </div>
         </div>
-        <p class="sprint-desc">Technischer Support und stabiler Betrieb von IT-Systemen. Administration von Active Directory und Azure-basierten Diensten, Aufbau von Scripting- und SQL-Kenntnissen — das technische Fundament meiner Produktarbeit.</p>
+        <p class="sprint-desc" data-i18n="s3_desc">Technischer Support und stabiler Betrieb von IT-Systemen. Administration von Active Directory und Azure-basierten Diensten, Aufbau von Scripting- und SQL-Kenntnissen — das technische Fundament meiner Produktarbeit.</p>
       </div>
 
       <div class="sprint-card">
         <div class="sprint-tag">SPRINT_04</div>
         <div class="sprint-date">2018 — 2019</div>
-        <div class="sprint-role">IT-Projektleitung &amp; Support</div>
+        <div class="sprint-role" data-i18n="s4_role">IT-Projektleitung &amp; Support</div>
         <div class="sprint-company">TopM Software GmbH</div>
-        <div class="sprint-industry">ERP · Gesundheitswesen</div>
+        <div class="sprint-industry" data-i18n="s4_industry">ERP · Gesundheitswesen</div>
         <div class="sprint-metrics">
           <div>
             <div class="metric-val">310</div>
-            <div class="metric-label">Gesundheitsbetriebe</div>
+            <div class="metric-label" data-i18n="ml_health">Gesundheitsbetriebe</div>
           </div>
           <div>
             <div class="metric-val">ERP</div>
-            <div class="metric-label">System-Rollout</div>
+            <div class="metric-label" data-i18n="ml_rollout">System-Rollout</div>
           </div>
           <div>
             <div class="metric-val">B2B</div>
-            <div class="metric-label">Kunden-Feedback-Loop</div>
+            <div class="metric-label" data-i18n="ml_feedback">Kunden-Feedback-Loop</div>
           </div>
         </div>
-        <p class="sprint-desc">ERP-System für ca. 310 Gesundheitsbetriebe implementiert. Kundenfeedback in strukturierten Input für Entwicklungsteams übersetzt. Endnutzer-Schulungen und Onboarding während der Einführungsphase durchgeführt — erste Erfahrung an der Schnittstelle zwischen Nutzern und Engineering.</p>
+        <p class="sprint-desc" data-i18n="s4_desc">ERP-System für ca. 310 Gesundheitsbetriebe implementiert. Kundenfeedback in strukturierten Input für Entwicklungsteams übersetzt. Endnutzer-Schulungen und Onboarding während der Einführungsphase durchgeführt — erste Erfahrung an der Schnittstelle zwischen Nutzern und Engineering.</p>
       </div>
       <div class="sprint-next">
         <div class="sprint-next-dot"></div>
@@ -1209,17 +1224,17 @@
       <div class="cert-card">
         <div>
           <div class="cert-name">Professional Scrum Product Owner (PSPO I)</div>
-          <div class="cert-sub">Scrum.org · Dezember 2024</div>
+          <div class="cert-sub" data-i18n="cert_pspo_date">Scrum.org · Dezember 2024</div>
         </div>
         <div class="cert-badge">Certified</div>
       </div>
       <div class="cert-card">
         <div>
-          <div class="cert-name">Fachinformatiker Anwendungsentwicklung</div>
+          <div class="cert-name" data-i18n="cert_ausb_name">Fachinformatiker Anwendungsentwicklung</div>
           <div class="cert-sub">TopM Software GmbH · 2015 — 2018</div>
           <div class="cert-sub">Java · Delphi · SQL</div>
         </div>
-        <div class="cert-badge">Ausbildung</div>
+        <div class="cert-badge" data-i18n="cert_ausb_badge">Ausbildung</div>
       </div>
     </div>
   </section>
@@ -1229,17 +1244,17 @@
     <div class="sec-label">03 // Skill Architecture</div>
     <div class="dna-head">
       <h2 class="display dna-title">Product DNA</h2>
-      <p class="roadmap-sub">Kompetenz über den gesamten Produktlebenszyklus — von der strategischen Vision bis zum ausgelieferten, gemessenen Ergebnis.</p>
+      <p class="roadmap-sub" data-i18n="dna_sub">Kompetenz über den gesamten Produktlebenszyklus — von der strategischen Vision bis zum ausgelieferten, gemessenen Ergebnis.</p>
     </div>
 
     <div class="dna-grid">
       <div class="dna-card">
         <div class="dna-cat">Strategy</div>
         <div class="dna-name">Strategie</div>
-        <div class="dna-sub">Vision &amp; Richtung</div>
+        <div class="dna-sub" data-i18n="dna1_sub">Vision &amp; Richtung</div>
         <div class="dna-detail">
           <div class="dna-detail-inner">
-            <p>Definieren was gebaut wird und warum — Produktvision mit Geschäftszielen und Marktchancen in Einklang bringen.</p>
+            <p data-i18n="dna1_p">Definieren was gebaut wird und warum — Produktvision mit Geschäftszielen und Marktchancen in Einklang bringen.</p>
             <div>
               <div class="dna-group-label">Core Competencies</div>
               <div class="dna-tags">
@@ -1273,17 +1288,17 @@
       <div class="dna-card">
         <div class="dna-cat">Discovery</div>
         <div class="dna-name">Discovery</div>
-        <div class="dna-sub">Anforderungen &amp; Validierung</div>
+        <div class="dna-sub" data-i18n="dna2_sub">Anforderungen &amp; Validierung</div>
         <div class="dna-detail">
           <div class="dna-detail-inner">
-            <p>Nutzerbedürfnisse verstehen und validieren — Anforderungen strukturiert erheben und in priorisierte Backlogs übersetzen.</p>
+            <p data-i18n="dna2_p">Nutzerbedürfnisse verstehen und validieren — Anforderungen strukturiert erheben und in priorisierte Backlogs übersetzen.</p>
             <div>
               <div class="dna-group-label">Core Competencies</div>
               <div class="dna-tags">
                 <span class="dna-tag filled">User Research</span>
                 <span class="dna-tag filled">Requirements Engineering</span>
                 <span class="dna-tag filled">Backlog Management</span>
-                <span class="dna-tag filled">Priorisierung</span>
+                <span class="dna-tag filled" data-i18n="tag_prio">Priorisierung</span>
               </div>
             </div>
             <div>
@@ -1312,17 +1327,17 @@
       <div class="dna-card">
         <div class="dna-cat">Development</div>
         <div class="dna-name">Delivery</div>
-        <div class="dna-sub">Agil bauen &amp; iterieren</div>
+        <div class="dna-sub" data-i18n="dna3_sub">Agil bauen &amp; iterieren</div>
         <div class="dna-detail">
           <div class="dna-detail-inner">
-            <p>Konsistent liefern — cross-funktionale Teams führen und monatliche Releases in einem agilen Umfeld sicherstellen.</p>
+            <p data-i18n="dna3_p">Konsistent liefern — cross-funktionale Teams führen und monatliche Releases in einem agilen Umfeld sicherstellen.</p>
             <div>
               <div class="dna-group-label">Core Competencies</div>
               <div class="dna-tags">
                 <span class="dna-tag filled">Sprint Planning</span>
                 <span class="dna-tag filled">Release Management</span>
                 <span class="dna-tag filled">Cross-functional Leadership</span>
-                <span class="dna-tag filled">PSPO I zertifiziert</span>
+                <span class="dna-tag filled" data-i18n="tag_pspo">PSPO I zertifiziert</span>
               </div>
             </div>
             <div>
@@ -1349,16 +1364,16 @@
 
       <div class="dna-card">
         <div class="dna-cat">Tech</div>
-        <div class="dna-name">Technologie</div>
-        <div class="dna-sub">Fundament aus der Entwicklung</div>
+        <div class="dna-name" data-i18n="dna4_name">Technologie</div>
+        <div class="dna-sub" data-i18n="dna4_sub">Fundament aus der Entwicklung</div>
         <div class="dna-detail">
           <div class="dna-detail-inner">
-            <p>Technisches Verständnis aus der Praxis — von der Anwendungsentwicklung bis zur Cloud-Administration.</p>
+            <p data-i18n="dna4_p">Technisches Verständnis aus der Praxis — von der Anwendungsentwicklung bis zur Cloud-Administration.</p>
             <div>
               <div class="dna-group-label">Core Competencies</div>
               <div class="dna-tags">
                 <span class="dna-tag filled">API Understanding</span>
-                <span class="dna-tag filled">Datenbankabfragen</span>
+                <span class="dna-tag filled" data-i18n="tag_db">Datenbankabfragen</span>
                 <span class="dna-tag filled">Cloud Administration</span>
                 <span class="dna-tag filled">Tech Documentation</span>
               </div>
@@ -1383,10 +1398,10 @@
               </div>
             </div>
             <div>
-              <div class="dna-group-label">Sprachen</div>
+              <div class="dna-group-label" data-i18n="dna_languages">Sprachen</div>
               <div class="dna-tags">
-                <span class="dna-tag filled">Deutsch</span>
-                <span class="dna-tag filled">Englisch</span>
+                <span class="dna-tag filled" data-i18n="tag_german">Deutsch</span>
+                <span class="dna-tag filled" data-i18n="tag_english">Englisch</span>
               </div>
             </div>
           </div>
@@ -1401,7 +1416,7 @@
     <div class="sec-label">04 // Insights</div>
     <div class="insights-head">
       <h2 class="display insights-title">Insights</h2>
-      <p class="roadmap-sub">Gedanken zu Product Management, SaaS und digitaler Transformation — direkt von LinkedIn.</p>
+      <p class="roadmap-sub" data-i18n="insights_sub">Gedanken zu Product Management, SaaS und digitaler Transformation — direkt von LinkedIn.</p>
     </div>
     <div class="insights-grid">
 
@@ -1416,10 +1431,10 @@
             <span class="insight-tag">#SaaS</span>
             <span class="insight-tag">#DigitalTransformation</span>
           </div>
-          <p class="insight-teaser">Digitale Transformation im öffentlichen Sektor — warum gute Produktarbeit hier mehr bedeutet als Features bauen.</p>
+          <p class="insight-teaser" data-i18n="post1_teaser">Digitale Transformation im öffentlichen Sektor — warum gute Produktarbeit hier mehr bedeutet als Features bauen.</p>
           <div class="insight-footer">
-            <button class="btn btn-ghost" onclick="loadPost('post-1','https://www.linkedin.com/embed/feed/update/urn:li:activity:7465631709074685952')" style="align-self:flex-start;padding:0.8rem 1.4rem;font-size:0.72rem;">Post laden ↗</button>
-            <p class="insight-consent">Mit dem Laden stimmen Sie der Übertragung von Daten an LinkedIn Ireland Unlimited Company zu.</p>
+            <button class="btn btn-ghost" onclick="loadPost('post-1','https://www.linkedin.com/embed/feed/update/urn:li:activity:7465631709074685952')" style="align-self:flex-start;padding:0.8rem 1.4rem;font-size:0.72rem;" data-i18n="post_btn">Post laden ↗</button>
+            <p class="insight-consent" data-i18n="post_consent">Mit dem Laden stimmen Sie der Übertragung von Daten an LinkedIn Ireland Unlimited Company zu.</p>
           </div>
         </div>
         <iframe class="insight-iframe" id="iframe-post-1" frameborder="0" allowfullscreen title="LinkedIn Post"></iframe>
@@ -1435,10 +1450,10 @@
             <span class="insight-tag">#ProductManagement</span>
             <span class="insight-tag">#Lessons Learned</span>
           </div>
-          <p class="insight-teaser">Drei Dinge, die ich bei der Entwicklung eines Produkts gelernt habe — und was ich beim nächsten Mal anders machen würde.</p>
+          <p class="insight-teaser" data-i18n="post2_teaser">Drei Dinge, die ich bei der Entwicklung eines Produkts gelernt habe — und was ich beim nächsten Mal anders machen würde.</p>
           <div class="insight-footer">
-            <button class="btn btn-ghost" onclick="loadPost('post-2','https://www.linkedin.com/embed/feed/update/urn:li:activity:7467821129643089920')" style="align-self:flex-start;padding:0.8rem 1.4rem;font-size:0.72rem;">Post laden ↗</button>
-            <p class="insight-consent">Mit dem Laden stimmen Sie der Übertragung von Daten an LinkedIn Ireland Unlimited Company zu.</p>
+            <button class="btn btn-ghost" onclick="loadPost('post-2','https://www.linkedin.com/embed/feed/update/urn:li:activity:7467821129643089920')" style="align-self:flex-start;padding:0.8rem 1.4rem;font-size:0.72rem;" data-i18n="post_btn">Post laden ↗</button>
+            <p class="insight-consent" data-i18n="post_consent">Mit dem Laden stimmen Sie der Übertragung von Daten an LinkedIn Ireland Unlimited Company zu.</p>
           </div>
         </div>
         <iframe class="insight-iframe" id="iframe-post-2" frameborder="0" allowfullscreen title="LinkedIn Post"></iframe>
@@ -1455,10 +1470,10 @@
             <span class="insight-tag">#ProductOwner</span>
             <span class="insight-tag">#AI</span>
           </div>
-          <p class="insight-teaser">KI im Product Management — wie sich die Rolle des Product Owners durch Automatisierung verändert und wo der Mensch bleibt.</p>
+          <p class="insight-teaser" data-i18n="post3_teaser">KI im Product Management — wie sich die Rolle des Product Owners durch Automatisierung verändert und wo der Mensch bleibt.</p>
           <div class="insight-footer">
-            <button class="btn btn-ghost" onclick="loadPost('post-3','https://www.linkedin.com/embed/feed/update/urn:li:activity:7471147824953548800')" style="align-self:flex-start;padding:0.8rem 1.4rem;font-size:0.72rem;">Post laden ↗</button>
-            <p class="insight-consent">Mit dem Laden stimmen Sie der Übertragung von Daten an LinkedIn Ireland Unlimited Company zu.</p>
+            <button class="btn btn-ghost" onclick="loadPost('post-3','https://www.linkedin.com/embed/feed/update/urn:li:activity:7471147824953548800')" style="align-self:flex-start;padding:0.8rem 1.4rem;font-size:0.72rem;" data-i18n="post_btn">Post laden ↗</button>
+            <p class="insight-consent" data-i18n="post_consent">Mit dem Laden stimmen Sie der Übertragung von Daten an LinkedIn Ireland Unlimited Company zu.</p>
           </div>
         </div>
         <iframe class="insight-iframe" id="iframe-post-3" frameborder="0" allowfullscreen title="LinkedIn Post"></iframe>
@@ -1476,14 +1491,14 @@
     </h2>
     <div class="contact-grid">
       <div>
-        <p class="contact-text">Sie suchen einen Product Manager, der messbare Ergebnisse liefert? Schreiben Sie mir — ich freue mich auf den Austausch.</p>
+        <p class="contact-text" data-i18n="contact_text">Sie suchen einen Product Manager, der messbare Ergebnisse liefert? Schreiben Sie mir — ich freue mich auf den Austausch.</p>
         <form class="mail-form" id="mailForm">
           <input type="hidden" name="access_key" value="c0e9bc46-ea78-4f4c-b054-c25e273b4a8b"/>
           <input type="hidden" name="subject" value="Kontaktanfrage über jeamr.com"/>
           <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off"/>
-          <input type="text" name="name" placeholder="Ihr Name" required/>
-          <input type="email" name="email" placeholder="ihre@email.de" required/>
-          <textarea name="message" placeholder="Ihre Nachricht ..." required></textarea>
+          <input type="text" name="name" placeholder="Ihr Name" data-i18n-ph="form_name" required/>
+          <input type="email" name="email" placeholder="ihre@email.de" data-i18n-ph="form_email" required/>
+          <textarea name="message" placeholder="Ihre Nachricht ..." data-i18n-ph="form_msg" required></textarea>
           <button type="submit" class="btn btn-green" id="sendBtn">Send ↗</button>
           <div class="form-status" id="formStatus"></div>
         </form>
@@ -1508,7 +1523,7 @@
     <footer>
       <div class="footer-inner">
         <span>© 2026 Jean-Yves Meyer</span>
-        <span>IT Product Manager · Bayern</span>
+        <span data-i18n="footer_role">IT Product Manager · Bayern</span>
         <a href="#" id="backToTop">Back to top ↑</a>
         <button onclick="document.getElementById('impressumModal').classList.add('open')" style="background:none;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);padding:0;">Impressum</button>
         <button onclick="document.getElementById('datenschutzModal').classList.add('open')" style="background:none;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);padding:0;">Datenschutz</button>
@@ -1821,6 +1836,168 @@
       document.getElementById('datenschutzModal').classList.remove('open');
     }
   });
+
+  // ── LANGUAGE TOGGLE ──────────────────────────────────────────────
+  const i18n = {
+    de: {
+      nav_contact: 'Kontakt',
+      hero_avail: 'Bereit für neue Herausforderungen',
+      hero_title: 'Produkte<br/><span class="accent">strategisch</span><br/>skalieren',
+      hero_desc: 'IT Product Manager mit technischem Fundament — spezialisiert auf SaaS-Plattformen für den öffentlichen Sektor und die Versicherungsbranche. Ich verbinde Business-Strategie mit technischer Umsetzung und liefere messbare Ergebnisse.',
+      hero_cta: 'Roadmap ansehen ↗',
+      about_h: 'Vom Code zur Produktstrategie',
+      about_p1: 'Ich verwalte nicht nur Backlogs — ich gestalte Wert. Mein Werdegang begann als Fachinformatiker für Anwendungsentwicklung im Code und führt heute in die volle Produktverantwortung für eine Enterprise-SaaS-Plattform.',
+      about_p2: 'Mein Ansatz ist systemisch: Jedes Feature ist eine Hypothese, jedes Release eine Lernchance, jede Metrik erzählt eine Geschichte über Nutzerverhalten. Ich übersetze komplexe Anforderungen — Compliance, viele Stakeholder, technische Constraints — in klare, priorisierte Roadmaps.',
+      stat_years: 'Jahre in IT & Produkt',
+      stat_clients: 'Enterprise-Kunden',
+      stat_sectors: 'Branchen-Schwerpunkte',
+      roadmap_sub: 'Jede Rolle ist ein erfolgreich ausgelieferter Sprint — messbare Ergebnisse, skalierte Systeme und validierte Produktentscheidungen.',
+      s1_date: '2025 — Heute',
+      ml_clients: 'Enterprise-Kunden',
+      ml_team: 'Personen im Team',
+      ml_users: 'Nutzer/Organisation',
+      s1_desc: 'Vollständige Produktverantwortung für eine SaaS-Terminbuchungsplattform. Roadmap definiert und umgesetzt, monatliche Releases mit cross-funktionalem Team sichergestellt, Features nach Business Value, technischen Constraints und OKRs priorisiert. Verantwortlich für 2 Produkte, 2 Services und Keycloak als SSO-Plattform.',
+      s2_industry: 'SaaS · Agile Produktentwicklung',
+      ml_cycle: 'Sprint-Zyklus',
+      ml_participation: 'Sprint-Beteiligung',
+      ml_certified: 'Zertifiziert 2024',
+      s2_desc: 'Aktive Mitgestaltung der Produktentwicklung im agilen Umfeld. Eigenständige Anforderungserhebung, Verfeinerung von User Stories sowie eigenverantwortliche Mitgestaltung von Sprint-Planung und Roadmap-Diskussionen.',
+      ml_yrs_ops: 'Jahre Betrieb',
+      ml_scripting: 'Scripting & Daten',
+      s3_desc: 'Technischer Support und stabiler Betrieb von IT-Systemen. Administration von Active Directory und Azure-basierten Diensten, Aufbau von Scripting- und SQL-Kenntnissen — das technische Fundament meiner Produktarbeit.',
+      s4_role: 'IT-Projektleitung & Support',
+      s4_industry: 'ERP · Gesundheitswesen',
+      ml_health: 'Gesundheitsbetriebe',
+      ml_rollout: 'System-Rollout',
+      ml_feedback: 'Kunden-Feedback-Loop',
+      s4_desc: 'ERP-System für ca. 310 Gesundheitsbetriebe implementiert. Kundenfeedback in strukturierten Input für Entwicklungsteams übersetzt. Endnutzer-Schulungen und Onboarding während der Einführungsphase durchgeführt — erste Erfahrung an der Schnittstelle zwischen Nutzern und Engineering.',
+      cert_pspo_date: 'Scrum.org · Dezember 2024',
+      cert_ausb_name: 'Fachinformatiker Anwendungsentwicklung',
+      cert_ausb_badge: 'Ausbildung',
+      dna_sub: 'Kompetenz über den gesamten Produktlebenszyklus — von der strategischen Vision bis zum ausgelieferten, gemessenen Ergebnis.',
+      dna1_sub: 'Vision & Richtung',
+      dna1_p: 'Definieren was gebaut wird und warum — Produktvision mit Geschäftszielen und Marktchancen in Einklang bringen.',
+      dna2_sub: 'Anforderungen & Validierung',
+      dna2_p: 'Nutzerbedürfnisse verstehen und validieren — Anforderungen strukturiert erheben und in priorisierte Backlogs übersetzen.',
+      tag_prio: 'Priorisierung',
+      dna3_sub: 'Agil bauen & iterieren',
+      dna3_p: 'Konsistent liefern — cross-funktionale Teams führen und monatliche Releases in einem agilen Umfeld sicherstellen.',
+      tag_pspo: 'PSPO I zertifiziert',
+      dna4_name: 'Technologie',
+      dna4_sub: 'Fundament aus der Entwicklung',
+      dna4_p: 'Technisches Verständnis aus der Praxis — von der Anwendungsentwicklung bis zur Cloud-Administration.',
+      tag_db: 'Datenbankabfragen',
+      dna_languages: 'Sprachen',
+      tag_german: 'Deutsch',
+      tag_english: 'Englisch',
+      insights_sub: 'Gedanken zu Product Management, SaaS und digitaler Transformation — direkt von LinkedIn.',
+      post1_teaser: 'Digitale Transformation im öffentlichen Sektor — warum gute Produktarbeit hier mehr bedeutet als Features bauen.',
+      post2_teaser: 'Drei Dinge, die ich bei der Entwicklung eines Produkts gelernt habe — und was ich beim nächsten Mal anders machen würde.',
+      post3_teaser: 'KI im Product Management — wie sich die Rolle des Product Owners durch Automatisierung verändert und wo der Mensch bleibt.',
+      post_btn: 'Post laden ↗',
+      post_consent: 'Mit dem Laden stimmen Sie der Übertragung von Daten an LinkedIn Ireland Unlimited Company zu.',
+      contact_text: 'Sie suchen einen Product Manager, der messbare Ergebnisse liefert? Schreiben Sie mir — ich freue mich auf den Austausch.',
+      form_name: 'Ihr Name',
+      form_email: 'ihre@email.de',
+      form_msg: 'Ihre Nachricht ...',
+      footer_role: 'IT Product Manager · Bayern',
+    },
+    en: {
+      nav_contact: 'Contact',
+      hero_avail: 'Open to new opportunities',
+      hero_title: 'Products<br/><span class="accent">strategically</span><br/>scaled',
+      hero_desc: 'IT Product Manager with a technical foundation — specialised in SaaS platforms for the public sector and insurance industry. I bridge business strategy with technical execution and deliver measurable results.',
+      hero_cta: 'View Roadmap ↗',
+      about_h: 'From Code to Product Strategy',
+      about_p1: "I don't just manage backlogs — I shape value. My career started as a software developer in code and has led to full product ownership of an enterprise SaaS platform.",
+      about_p2: 'My approach is systemic: every feature is a hypothesis, every release a learning opportunity, every metric tells a story about user behaviour. I translate complex requirements — compliance, multiple stakeholders, technical constraints — into clear, prioritised roadmaps.',
+      stat_years: 'Years in IT & Product',
+      stat_clients: 'Enterprise Clients',
+      stat_sectors: 'Industry Focus Areas',
+      roadmap_sub: 'Every role is a successfully delivered sprint — measurable results, scaled systems, and validated product decisions.',
+      s1_date: '2025 — Present',
+      ml_clients: 'Enterprise Clients',
+      ml_team: 'Team Members',
+      ml_users: 'Users/Organisation',
+      s1_desc: 'Full product ownership for a SaaS appointment booking platform. Roadmap defined and delivered, monthly releases ensured with a cross-functional team, features prioritised by business value, technical constraints and OKRs. Responsible for 2 products, 2 services and Keycloak as SSO platform.',
+      s2_industry: 'SaaS · Agile Product Development',
+      ml_cycle: 'Sprint Cycle',
+      ml_participation: 'Sprint Participation',
+      ml_certified: 'Certified 2024',
+      s2_desc: 'Active contribution to product development in an agile environment. Independent requirements gathering, refinement of user stories, and autonomous co-ownership of sprint planning and roadmap discussions.',
+      ml_yrs_ops: 'Years Operations',
+      ml_scripting: 'Scripting & Data',
+      s3_desc: 'Technical support and stable operations of IT systems. Administration of Active Directory and Azure-based services, building scripting and SQL skills — the technical foundation of my product work.',
+      s4_role: 'IT Project Lead & Support',
+      s4_industry: 'ERP · Healthcare',
+      ml_health: 'Healthcare Facilities',
+      ml_rollout: 'System Rollout',
+      ml_feedback: 'Client Feedback Loop',
+      s4_desc: 'Implemented an ERP system for approx. 310 healthcare organisations. Translated customer feedback into structured input for development teams. Conducted end-user training and onboarding during the rollout phase — first experience at the interface between users and engineering.',
+      cert_pspo_date: 'Scrum.org · December 2024',
+      cert_ausb_name: 'IT Specialist Application Development',
+      cert_ausb_badge: 'Apprenticeship',
+      dna_sub: 'Expertise across the full product lifecycle — from strategic vision to delivered, measured outcomes.',
+      dna1_sub: 'Vision & Direction',
+      dna1_p: 'Defining what gets built and why — aligning product vision with business goals and market opportunities.',
+      dna2_sub: 'Requirements & Validation',
+      dna2_p: 'Understanding and validating user needs — gathering requirements systematically and translating them into prioritised backlogs.',
+      tag_prio: 'Prioritisation',
+      dna3_sub: 'Build & Iterate Agile',
+      dna3_p: 'Delivering consistently — leading cross-functional teams and ensuring monthly releases in an agile environment.',
+      tag_pspo: 'PSPO I certified',
+      dna4_name: 'Technology',
+      dna4_sub: 'Foundation from Development',
+      dna4_p: 'Practical technical understanding — from application development to cloud administration.',
+      tag_db: 'Database Queries',
+      dna_languages: 'Languages',
+      tag_german: 'German',
+      tag_english: 'English',
+      insights_sub: 'Thoughts on Product Management, SaaS and digital transformation — straight from LinkedIn.',
+      post1_teaser: 'Digital transformation in the public sector — why good product work means more than just building features.',
+      post2_teaser: 'Three things I learned while developing a product — and what I would do differently next time.',
+      post3_teaser: 'AI in Product Management — how the role of the Product Owner is changing through automation and where the human remains.',
+      post_btn: 'Load post ↗',
+      post_consent: 'By loading the post you consent to data transfer to LinkedIn Ireland Unlimited Company.',
+      contact_text: 'Looking for a Product Manager who delivers measurable results? Write to me — I look forward to hearing from you.',
+      form_name: 'Your name',
+      form_email: 'your@email.com',
+      form_msg: 'Your message ...',
+      footer_role: 'IT Product Manager · Bavaria',
+    }
+  };
+
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    localStorage.setItem('lang', lang);
+    const t = i18n[lang];
+    document.getElementById('langToggle').textContent = lang === 'de' ? 'EN' : 'DE';
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.getAttribute('data-i18n-ph');
+      if (t[key] !== undefined) el.placeholder = t[key];
+    });
+  }
+
+  function toggleLang() {
+    const current = localStorage.getItem('lang') || 'de';
+    setLang(current === 'de' ? 'en' : 'de');
+  }
+
+  // Auto-detect on first visit
+  (function() {
+    const saved = localStorage.getItem('lang');
+    if (saved) { setLang(saved); return; }
+    const browser = (navigator.language || navigator.userLanguage || 'de').toLowerCase();
+    setLang(browser.startsWith('de') ? 'de' : 'en');
+  })();
 
   function loadPost(cardId, iframeSrc) {
     if (window.innerWidth < 768) {
