@@ -2066,14 +2066,19 @@
   // Sprint scroll arrows
   const sprintGridEl = document.querySelector('.sprint-grid');
   const sprintWrap = document.querySelector('.sprint-grid-wrap');
-  function updateArrows() {
-    const atEnd = Math.ceil(sprintGridEl.scrollLeft) + sprintGridEl.clientWidth >= sprintGridEl.scrollWidth - 2;
-    const atStart = sprintGridEl.scrollLeft <= 2;
-    sprintWrap.classList.toggle('scrolled-end', atEnd);
-    sprintWrap.classList.toggle('at-start', atStart);
+
+  // Rechter Pfeil: IntersectionObserver auf letzter Karte — zuverlässiger als scrollLeft-Berechnung
+  const lastSprintCard = sprintGridEl.querySelector('.sprint-card:last-child');
+  new IntersectionObserver(entries => {
+    sprintWrap.classList.toggle('scrolled-end', entries[0].isIntersecting);
+  }, { root: sprintGridEl, threshold: 0.6 }).observe(lastSprintCard);
+
+  // Linker Pfeil: scrollLeft = 0 ist immer exakt
+  function updateLeftArrow() {
+    sprintWrap.classList.toggle('at-start', sprintGridEl.scrollLeft <= 5);
   }
-  sprintGridEl.addEventListener('scroll', updateArrows, { passive: true });
-  updateArrows();
+  sprintGridEl.addEventListener('scroll', updateLeftArrow, { passive: true });
+  updateLeftArrow();
   document.getElementById('sprintArrowLeft').addEventListener('click', () => {
     sprintGridEl.scrollBy({ left: -360, behavior: 'smooth' });
   });
