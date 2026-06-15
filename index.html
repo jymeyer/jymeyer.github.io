@@ -2089,6 +2089,7 @@
     if (e.key === 'Escape') {
       document.getElementById('impressumModal').classList.remove('open');
       document.getElementById('datenschutzModal').classList.remove('open');
+      closeEasterEgg();
     }
   });
 
@@ -2327,7 +2328,6 @@
     document.body.style.overflow = '';
   }
   document.getElementById('easterEggClose').addEventListener('click', closeEasterEgg);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEasterEgg(); });
 
   // Console Art — für Developer die DevTools öffnen
   console.log('%c\n     ██╗██╗   ██╗\n     ██║╚██╗ ██╔╝\n     ██║ ╚████╔╝ \n ██  ██║  ╚██╔╝  \n ╚█████║   ██║   \n  ╚════╝   ╚═╝   \n', 'color:#0E6CCF;font-family:monospace;line-height:1.4');
