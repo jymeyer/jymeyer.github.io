@@ -1557,13 +1557,13 @@
         </div>
         <div class="cert-badge">Certified ↗</div>
       </div>
-      <div class="cert-card">
+      <div class="cert-card cert-card--clickable" onclick="document.getElementById('ihkModal').classList.add('open')" role="button" tabindex="0">
         <div>
           <div class="cert-name" data-i18n="cert_ausb_name">Fachinformatiker Anwendungsentwicklung</div>
           <div class="cert-sub">TopM Software GmbH · 2015 — 2018</div>
           <div class="cert-sub">Java · Delphi · SQL</div>
         </div>
-        <div class="cert-badge" data-i18n="cert_ausb_badge">Ausbildung</div>
+        <div class="cert-badge" data-i18n="cert_ausb_badge">Ausbildung ↗</div>
       </div>
     </div>
   </section>
@@ -1913,6 +1913,18 @@
 </div>
 
 <!-- DATENSCHUTZ MODAL -->
+<div class="modal-overlay" id="ihkModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" aria-label="Schließen" onclick="document.getElementById('ihkModal').classList.remove('open')">ESC ✕</button>
+    <div class="modal-label">// Certification</div>
+    <div class="modal-title">IHK Abschluss</div>
+    <div class="modal-body">
+      <img src="ihk.jpg" alt="IHK Examination Certificate – Computer Science Expert Software Development" class="cert-modal-img"/>
+      <p style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;color:var(--dim);text-align:center;margin-top:1rem;">// Dokument wurde aus Datenschutzgründen teilweise geschwärzt.</p>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="pspoModal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal-box">
     <button class="modal-close" aria-label="Schließen" onclick="document.getElementById('pspoModal').classList.remove('open')">ESC ✕</button>
@@ -2366,6 +2378,7 @@
       document.getElementById('impressumModal').classList.remove('open');
       document.getElementById('datenschutzModal').classList.remove('open');
       document.getElementById('pspoModal').classList.remove('open');
+      document.getElementById('ihkModal').classList.remove('open');
       closeEasterEgg();
       closeSnake();
     }
