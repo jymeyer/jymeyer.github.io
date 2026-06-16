@@ -580,6 +580,18 @@
       transition: border-color 0.25s;
     }
     .cert-card:hover { border-color: var(--green-dim); }
+    .cert-card--clickable { cursor: pointer; }
+    .cert-modal-img {
+      width: 100%;
+      max-width: 700px;
+      display: block;
+      margin: 0 auto 1.6rem;
+      border: 1px solid var(--line);
+    }
+    .cert-modal-actions {
+      display: flex;
+      justify-content: center;
+    }
     .cert-name {
       font-family: 'Archivo', sans-serif;
       font-weight: 800;
@@ -1538,12 +1550,12 @@
     </div>
 
     <div class="cert-row">
-      <div class="cert-card">
+      <div class="cert-card cert-card--clickable" onclick="document.getElementById('pspoModal').classList.add('open')" role="button" tabindex="0">
         <div>
           <div class="cert-name">Professional Scrum Product Owner (PSPO I)</div>
           <div class="cert-sub" data-i18n="cert_pspo_date">Scrum.org · Dezember 2024</div>
         </div>
-        <div class="cert-badge">Certified</div>
+        <div class="cert-badge">Certified ↗</div>
       </div>
       <div class="cert-card">
         <div>
@@ -1901,6 +1913,20 @@
 </div>
 
 <!-- DATENSCHUTZ MODAL -->
+<div class="modal-overlay" id="pspoModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" aria-label="Schließen" onclick="document.getElementById('pspoModal').classList.remove('open')">ESC ✕</button>
+    <div class="modal-label">// Certification</div>
+    <div class="modal-title">PSPO I</div>
+    <div class="modal-body">
+      <img src="pspo.jpg" alt="Professional Scrum Product Owner I Zertifikat" class="cert-modal-img"/>
+      <div class="cert-modal-actions">
+        <a href="https://www.credly.com/badges/daf01160-d3d7-4aba-9eb4-a0277859e7a3" target="_blank" rel="noopener noreferrer" class="btn" style="font-size:0.78rem;padding:0.9rem 2rem;">Auf Credly verifizieren ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="datenschutzModal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal-box">
     <button class="modal-close" aria-label="Datenschutz schließen" onclick="document.getElementById('datenschutzModal').classList.remove('open')">ESC ✕</button>
@@ -2339,6 +2365,7 @@
     if (e.key === 'Escape') {
       document.getElementById('impressumModal').classList.remove('open');
       document.getElementById('datenschutzModal').classList.remove('open');
+      document.getElementById('pspoModal').classList.remove('open');
       closeEasterEgg();
       closeSnake();
     }
