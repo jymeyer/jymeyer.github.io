@@ -582,11 +582,18 @@
     .cert-card:hover { border-color: var(--green-dim); }
     .cert-card--clickable { cursor: pointer; }
     .cert-modal-img {
-      width: 100%;
-      max-width: 700px;
       display: block;
-      margin: 0 auto 1.6rem;
+      margin: 0 auto 1rem;
       border: 1px solid var(--line);
+      max-width: 100%;
+      max-height: calc(75vh - 120px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    .modal-box--cert {
+      overflow-y: hidden;
+      max-width: 560px;
     }
     .cert-modal-actions {
       display: flex;
@@ -1914,7 +1921,7 @@
 
 <!-- DATENSCHUTZ MODAL -->
 <div class="modal-overlay" id="ihkModal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="modal-box">
+  <div class="modal-box modal-box--cert">
     <button class="modal-close" aria-label="Schließen" onclick="document.getElementById('ihkModal').classList.remove('open')">ESC ✕</button>
     <div class="modal-label">// Certification</div>
     <div class="modal-title">IHK Abschluss</div>
