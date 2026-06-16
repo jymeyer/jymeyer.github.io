@@ -485,7 +485,8 @@
       padding-bottom: 1rem;
     }
     .sprint-grid::-webkit-scrollbar { display: none; }
-    .sprint-grid { scrollbar-width: none; }
+    .sprint-grid { scrollbar-width: none; cursor: grab; }
+    .sprint-grid.is-dragging { cursor: grabbing; scroll-snap-type: none; }
     .sprint-card {
       flex: 0 0 360px;
       scroll-snap-align: start;
@@ -2179,6 +2180,32 @@
   });
   document.getElementById('sprintArrowRight').addEventListener('click', () => {
     sprintGridEl.scrollBy({ left: 360, behavior: 'smooth' });
+  });
+
+  // Sprint drag-to-scroll (Desktop)
+  let sprintDragActive = false, sprintDragStartX = 0, sprintDragScrollLeft = 0;
+  sprintGridEl.addEventListener('mousedown', e => {
+    sprintDragActive = true;
+    sprintDragStartX = e.pageX - sprintGridEl.offsetLeft;
+    sprintDragScrollLeft = sprintGridEl.scrollLeft;
+    sprintGridEl.classList.add('is-dragging');
+  });
+  document.addEventListener('mouseup', () => {
+    if (!sprintDragActive) return;
+    sprintDragActive = false;
+    sprintGridEl.classList.remove('is-dragging');
+    sprintGridEl.style.scrollSnapType = '';
+  });
+  sprintGridEl.addEventListener('mouseleave', () => {
+    if (!sprintDragActive) return;
+    sprintDragActive = false;
+    sprintGridEl.classList.remove('is-dragging');
+  });
+  sprintGridEl.addEventListener('mousemove', e => {
+    if (!sprintDragActive) return;
+    e.preventDefault();
+    const x = e.pageX - sprintGridEl.offsetLeft;
+    sprintGridEl.scrollLeft = sprintDragScrollLeft - (x - sprintDragStartX) * 1.5;
   });
 
   // DNA cards — slide in from bottom
