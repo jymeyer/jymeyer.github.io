@@ -2577,7 +2577,7 @@
     e.preventDefault();
     logoClicks++;
     clearTimeout(logoTimer);
-    if (logoClicks >= 5) { logoClicks = 0; launchSnake(); return; }
+    if (logoClicks >= 2) { logoClicks = 0; launchSnake(); return; }
     logoTimer = setTimeout(() => { logoClicks = 0; }, 1800);
   });
 
