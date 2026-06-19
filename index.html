@@ -578,9 +578,31 @@
       align-items: center;
       gap: 1.5rem;
       transition: border-color 0.25s;
+      position: relative;
     }
     .cert-card:hover { border-color: var(--green-dim); }
     .cert-card--clickable { cursor: pointer; }
+    @keyframes cert-pulse {
+      0%, 100% { border-color: var(--line); box-shadow: none; }
+      50% { border-color: var(--green); box-shadow: 0 0 14px rgba(14, 108, 207, 0.4); }
+    }
+    .cert-card--new { animation: cert-pulse 2.2s ease-in-out infinite; }
+    .cert-new-badge {
+      position: absolute;
+      top: -0.7rem;
+      left: 1.4rem;
+      display: inline-block;
+      width: max-content;
+      background: var(--green);
+      color: var(--bg);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      white-space: nowrap;
+    }
     .cert-modal-img {
       display: block;
       margin: 0 auto 1rem;
@@ -1557,7 +1579,8 @@
     </div>
 
     <div class="cert-row">
-      <div class="cert-card cert-card--clickable" onclick="document.getElementById('pspoAiModal').classList.add('open')" role="button" tabindex="0">
+      <div class="cert-card cert-card--clickable cert-card--new" onclick="document.getElementById('pspoAiModal').classList.add('open')" role="button" tabindex="0">
+        <div class="cert-new-badge" data-i18n="cert_new_badge">Neu</div>
         <div>
           <div class="cert-name">Professional Scrum Product Owner - AI Essentials (PSPO-AIE)</div>
           <div class="cert-sub" data-i18n="cert_pspoai_date">Scrum.org · Juni 2026</div>
@@ -2460,6 +2483,7 @@
       pspo_credly_btn: 'Auf Credly verifizieren ↗',
       cert_pspoai_date: 'Scrum.org · Juni 2026',
       pspoai_verify_btn: 'Auf Credly verifizieren ↗',
+      cert_new_badge: 'Neu',
       dna_sub: 'Kompetenz über den gesamten Produktlebenszyklus — von der strategischen Vision bis zum ausgelieferten, gemessenen Ergebnis.',
       dna1_sub: 'Vision & Richtung',
       dna1_p: 'Definieren was gebaut wird und warum — Produktvision mit Geschäftszielen und Marktchancen in Einklang bringen.',
@@ -2537,6 +2561,7 @@
       pspo_credly_btn: 'Verify on Credly ↗',
       cert_pspoai_date: 'Scrum.org · June 2026',
       pspoai_verify_btn: 'Verify on Credly ↗',
+      cert_new_badge: 'New',
       dna_sub: 'Expertise across the full product lifecycle — from strategic vision to delivered, measured outcomes.',
       dna1_sub: 'Vision & Direction',
       dna1_p: 'Defining what gets built and why — aligning product vision with business goals and market opportunities.',
