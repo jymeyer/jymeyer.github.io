@@ -565,7 +565,7 @@
     /* ─── CERTIFICATIONS ─── */
     .cert-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
       gap: 1.4rem;
       margin-top: 1.4rem;
     }
@@ -1564,6 +1564,13 @@
         </div>
         <div class="cert-badge">Certified ↗</div>
       </div>
+      <div class="cert-card cert-card--clickable" onclick="document.getElementById('pspoAiModal').classList.add('open')" role="button" tabindex="0">
+        <div>
+          <div class="cert-name">PSPO · AI Essentials</div>
+          <div class="cert-sub" data-i18n="cert_pspoai_date">Scrum.org · Juni 2026</div>
+        </div>
+        <div class="cert-badge">Certified ↗</div>
+      </div>
       <div class="cert-card cert-card--clickable" onclick="document.getElementById('ihkModal').classList.add('open')" role="button" tabindex="0">
         <div>
           <div class="cert-name" data-i18n="cert_ausb_name">Fachinformatiker Anwendungsentwicklung</div>
@@ -1941,6 +1948,20 @@
       <img src="pspo.jpg" alt="Professional Scrum Product Owner I Zertifikat" class="cert-modal-img"/>
       <div class="cert-modal-actions">
         <a href="https://www.credly.com/badges/daf01160-d3d7-4aba-9eb4-a0277859e7a3" target="_blank" rel="noopener noreferrer" class="btn" style="font-size:0.78rem;padding:0.9rem 2rem;" data-i18n="pspo_credly_btn">Auf Credly verifizieren ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="pspoAiModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" aria-label="Schließen" onclick="document.getElementById('pspoAiModal').classList.remove('open')">ESC ✕</button>
+    <div class="modal-label">// Certification</div>
+    <div class="modal-title">PSPO · AI Essentials</div>
+    <div class="modal-body">
+      <img src="pspo-ai.jpg" alt="Professional Scrum Product Owner AI Essentials Zertifikat" class="cert-modal-img"/>
+      <div class="cert-modal-actions">
+        <a href="https://scrum.org/certificates/1328799" target="_blank" rel="noopener noreferrer" class="btn" style="font-size:0.78rem;padding:0.9rem 2rem;" data-i18n="pspoai_verify_btn">Auf Scrum.org verifizieren ↗</a>
       </div>
     </div>
   </div>
@@ -2385,6 +2406,7 @@
       document.getElementById('impressumModal').classList.remove('open');
       document.getElementById('datenschutzModal').classList.remove('open');
       document.getElementById('pspoModal').classList.remove('open');
+      document.getElementById('pspoAiModal').classList.remove('open');
       document.getElementById('ihkModal').classList.remove('open');
       closeEasterEgg();
       closeSnake();
@@ -2432,6 +2454,8 @@
       ihk_modal_title: 'IHK Abschluss',
       ihk_privacy_note: '// Dokument wurde aus Datenschutzgründen teilweise bearbeitet.',
       pspo_credly_btn: 'Auf Credly verifizieren ↗',
+      cert_pspoai_date: 'Scrum.org · Juni 2026',
+      pspoai_verify_btn: 'Auf Scrum.org verifizieren ↗',
       dna_sub: 'Kompetenz über den gesamten Produktlebenszyklus — von der strategischen Vision bis zum ausgelieferten, gemessenen Ergebnis.',
       dna1_sub: 'Vision & Richtung',
       dna1_p: 'Definieren was gebaut wird und warum — Produktvision mit Geschäftszielen und Marktchancen in Einklang bringen.',
@@ -2504,6 +2528,8 @@
       ihk_modal_title: 'IHK Certificate',
       ihk_privacy_note: '// Document has been partially edited for privacy reasons.',
       pspo_credly_btn: 'Verify on Credly ↗',
+      cert_pspoai_date: 'Scrum.org · June 2026',
+      pspoai_verify_btn: 'Verify on Scrum.org ↗',
       dna_sub: 'Expertise across the full product lifecycle — from strategic vision to delivered, measured outcomes.',
       dna1_sub: 'Vision & Direction',
       dna1_p: 'Defining what gets built and why — aligning product vision with business goals and market opportunities.',
