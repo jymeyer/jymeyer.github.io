@@ -2020,7 +2020,10 @@
 
       <div class="modal-section-title">Webanalyse</div>
       <p>Diese Website verwendet Umami Analytics (Umami Software Inc., USA) zur datenschutzfreundlichen Analyse von Seitenaufrufen. Umami setzt keine Cookies, erfasst keine personenbezogenen Daten und speichert keine IP-Adressen. Die erhobenen Daten (z.B. aufgerufene Seiten, Verweildauer, Gerät) sind vollständig anonymisiert. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Websiteoptimierung).</p>
-      <p style="margin-top:0.8rem">Sie können die Analyse jederzeit deaktivieren — der entsprechende Button befindet sich im Footer der Seite.</p>
+      <p style="margin-top:0.8rem">Sie können der Analyse jederzeit widersprechen — die Deaktivierung wirkt ab dem Zeitpunkt des Klicks für alle zukünftigen Seitenaufrufe; bereits erhobene, anonymisierte Daten werden dadurch nicht nachträglich entfernt.</p>
+      <p style="margin-top:0.8rem">
+        <button id="trackingToggleModal" onclick="toggleTracking()" class="btn btn-ghost" style="font-size:0.72rem;padding:0.7rem 1.4rem;"></button>
+      </p>
 
       <div class="modal-section-title">Cookies</div>
       <p>Diese Website verwendet keine Cookies. Es werden keine personenbezogenen Daten für Werbezwecke verarbeitet.</p>
@@ -2212,10 +2215,12 @@
     updateTrackingBtn();
   }
   function updateTrackingBtn() {
-    const btn = document.getElementById('trackingToggle');
     const disabled = localStorage.getItem('umami.disabled');
+    const btn = document.getElementById('trackingToggle');
     btn.textContent = disabled ? 'Tracking aktivieren' : 'Tracking deaktivieren';
     btn.style.color = disabled ? 'var(--green)' : 'var(--dim)';
+    const modalBtn = document.getElementById('trackingToggleModal');
+    if (modalBtn) modalBtn.textContent = disabled ? 'Tracking aktivieren' : 'Tracking deaktivieren';
   }
   updateTrackingBtn();
 
