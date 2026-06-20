@@ -710,7 +710,7 @@
     }
     .dna-card:hover .dna-plus { border-color: var(--green); color: var(--green); }
     .dna-card.open .dna-plus { transform: rotate(45deg); border-color: var(--green); color: var(--green); }
-    .dna-card.open { grid-column: 1 / -1; order: -1; }
+    .dna-card.open { grid-column: 1 / -1; }
     .dna-detail {
       max-height: 0;
       overflow: hidden;
@@ -1325,9 +1325,7 @@
       .about-photo { max-width: 380px; }
       .stats-row { grid-template-columns: repeat(2, 1fr); }
       .dna-grid { grid-template-columns: 1fr; }
-      .dna-card.open { grid-column: auto; order: 0; }
       body.high-alert::before { display: none; }
-      .dna-card.open { grid-column: auto; order: unset; }
       .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
       .cert-row { grid-template-columns: 1fr; }
       section { padding: 6rem 0 3rem; }
