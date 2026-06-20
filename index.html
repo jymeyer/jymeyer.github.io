@@ -2235,6 +2235,7 @@
       if (!target) return;
       e.preventDefault();
       window.scrollTo({ top: target.offsetTop + NAV_OFFSET, behavior: 'smooth' });
+      history.pushState(null, '', link.getAttribute('href'));
     });
   });
 
