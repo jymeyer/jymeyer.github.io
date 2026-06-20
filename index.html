@@ -2126,6 +2126,10 @@
         navLinks.forEach(a => a.classList.remove('active'));
         const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
         if (link) link.classList.add('active');
+        const newHash = e.target.id === 'hero' ? location.pathname : `#${e.target.id}`;
+        if (location.hash !== newHash && !(newHash === location.pathname && location.hash === '')) {
+          history.replaceState(null, '', newHash);
+        }
       }
     });
   }, { threshold: 0.35 });
