@@ -765,12 +765,27 @@
     /* ─── INSIGHTS ─── */
     .insights-head { max-width: 700px; margin-bottom: 4rem; }
     .insights-title { font-size: clamp(2.8rem, 6vw, 5.5rem); margin-bottom: 2rem; }
-    .insights-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
-      gap: 1.4rem;
+    .insights-grid-wrap {
+      overflow: hidden;
+      position: relative;
     }
+    .insights-grid {
+      display: flex;
+      flex-direction: row;
+      gap: 1.4rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      cursor: grab;
+    }
+    .insights-grid::-webkit-scrollbar { display: none; }
+    .insights-grid { scrollbar-width: none; }
+    .insights-grid.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
     .insight-card {
+      flex: 0 0 360px;
+      scroll-snap-align: start;
       background: var(--card);
       border: 1px solid var(--line);
       position: relative;
@@ -801,7 +816,7 @@
       white-space: nowrap;
     }
     .insights-nav {
-      display: none;
+      display: flex;
       justify-content: space-between;
       margin-top: 1.2rem;
     }
@@ -1330,12 +1345,9 @@
       .cert-row { grid-template-columns: 1fr; }
       section { padding: 6rem 0 3rem; }
       .hero-cta { min-width: 100%; }
-      .insights-grid-wrap { overflow: hidden; position: relative; }
-      .insights-grid { display: flex; flex-direction: row; gap: 1.4rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-right: 1.4rem; padding-top: 1rem; }
-      .insights-grid::-webkit-scrollbar { display: none; }
-      .insights-grid { scrollbar-width: none; }
-      .insight-card { flex: 0 0 calc(100% - 1.4rem); scroll-snap-align: start; }
-      .insights-nav { display: flex; padding-right: 1.4rem; }
+      .insights-grid { padding-right: 1.4rem; }
+      .insight-card { flex: 0 0 calc(100% - 1.4rem); }
+      .insights-nav { padding-right: 1.4rem; }
     }
     @media (max-height: 820px) and (min-width: 1001px) {
       #hero { padding-top: 4.5rem; justify-content: flex-start; padding-bottom: 5rem; }
@@ -2362,7 +2374,7 @@
   }, { threshold: 0.15 });
   insightObserver.observe(document.querySelector('.insights-grid'));
 
-  // Insight scroll arrows (mobile)
+  // Insight scroll arrows
   const insightGridEl = document.querySelector('.insights-grid');
   const insightGridWrap = document.querySelector('.insights-grid-wrap');
   const lastInsightCard = insightGridEl.querySelector('.insight-card:last-child');
@@ -2375,10 +2387,36 @@
   insightGridEl.addEventListener('scroll', updateInsightLeftArrow, { passive: true });
   updateInsightLeftArrow();
   document.getElementById('insightArrowLeft').addEventListener('click', () => {
-    insightGridEl.scrollBy({ left: -(window.innerWidth - 50), behavior: 'smooth' });
+    insightGridEl.scrollBy({ left: -360, behavior: 'smooth' });
   });
   document.getElementById('insightArrowRight').addEventListener('click', () => {
-    insightGridEl.scrollBy({ left: window.innerWidth - 50, behavior: 'smooth' });
+    insightGridEl.scrollBy({ left: 360, behavior: 'smooth' });
+  });
+
+  // Insight drag-to-scroll (Desktop)
+  let insightDragActive = false, insightDragStartX = 0, insightDragScrollLeft = 0;
+  insightGridEl.addEventListener('mousedown', e => {
+    insightDragActive = true;
+    insightDragStartX = e.pageX - insightGridEl.offsetLeft;
+    insightDragScrollLeft = insightGridEl.scrollLeft;
+    insightGridEl.classList.add('is-dragging');
+  });
+  document.addEventListener('mouseup', () => {
+    if (!insightDragActive) return;
+    insightDragActive = false;
+    insightGridEl.classList.remove('is-dragging');
+    insightGridEl.style.scrollSnapType = '';
+  });
+  insightGridEl.addEventListener('mouseleave', () => {
+    if (!insightDragActive) return;
+    insightDragActive = false;
+    insightGridEl.classList.remove('is-dragging');
+  });
+  insightGridEl.addEventListener('mousemove', e => {
+    if (!insightDragActive) return;
+    e.preventDefault();
+    const x = e.pageX - insightGridEl.offsetLeft;
+    insightGridEl.scrollLeft = insightDragScrollLeft - (x - insightDragStartX) * 1.5;
   });
 
   // ── PRODUCT DNA ACCORDION ────────────────────────────────────
